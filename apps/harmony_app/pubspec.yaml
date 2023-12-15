@@ -32,6 +32,8 @@ dependencies:
   background_worker_pkg:
   local_storage_pkg:
   rest_client_pkg:
+  logger_pkg:
+  platform_info_pkg:
 
 dev_dependencies:
   flutter_test:

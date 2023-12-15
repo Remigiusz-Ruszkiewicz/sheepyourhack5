@@ -9,7 +9,9 @@ import 'package:harmony_app/src/home_page/home_page_view.dart';
 import 'package:library_pkg/library_pkg.dart';
 import 'package:local_storage_pkg/local_storage_pkg.dart';
 import 'package:localization_pkg/localization_pkg.dart';
+import 'package:logger_pkg/logger_pkg.dart';
 import 'package:permission_handler_pkg/permission_handler_pkg.dart';
+import 'package:platform_info_pkg/platform_info_pkg.dart';
 import 'package:rest_client_pkg/rest_client_pkg.dart';
 
 Future<void> main() async {
@@ -39,6 +41,10 @@ class HarmonyApp extends StatelessWidget {
 void _registerDependencies() {
   final getIt = GetIt.instance;
   getIt
+    ..registerSingletonAsync<Logger>(
+      () => LoggerProvider.createAsync('harmony'),
+      dispose: (service) => service.dispose(),
+    )
     ..registerSingletonAsync<PermissionHandler>(
       () => PermissionProvider.createAsync(
         getIt.get<PlatformInfo>().version,
@@ -58,6 +64,7 @@ void _registerDependencies() {
       dependsOn: [BackgroundWorker, Logger],
       dispose: (service) => service.dispose(),
     )
+    ..registerLazySingleton<PlatformInfo>(PlatformInfoProvider.new)
     ..registerLazySingletonAsync<RestClientProvider>(
       () => RestClientProvider.createAsync(
         getIt.get<BackgroundWorker>(),

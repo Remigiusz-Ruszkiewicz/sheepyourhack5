@@ -9,5 +9,5 @@ import 'package:dependency_interfaces/dependency_interfaces.dart' as dep show Pl
 
 final class PlatformInfoImpl implements dep.PlatformInfo {
   @override
-  Future<String?> get version => throw UnimplementedError();
+  Future<String?> get version => Future<String?>.value('0');
 }
