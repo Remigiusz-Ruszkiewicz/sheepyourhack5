@@ -1,0 +1,41 @@
+name: library_pkg
+description: library
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  get_it: ^7.6.4
+  async_builder: ^1.3.1+1
+  nil: ^1.1.1
+  comprehensive_utils: ^0.6.0
+  freezed: ^2.4.5
+  freezed_annotation: ^2.4.1
+  segment_display: ^0.5.0
+  fl_chart: ^0.65.0
+  auto_size_text: ^3.0.0
+  google_fonts: ^6.1.0
+  collection: ^1.17.1
+  rxdart: ^0.27.7
+  json_annotation: ^4.8.1
+
+  # Modules
+  dependency_interfaces:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^2.4.6
+  json_serializable: ^6.7.1
+
+
+flutter:
+  uses-material-design: true

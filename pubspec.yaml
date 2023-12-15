@@ -1,0 +1,10 @@
+name: harmony
+description: ""
+
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dev_dependencies:
+  melos: ^3.4.0

@@ -1,0 +1,78 @@
+name: harmony
+
+packages:
+  - "apps/**"
+  - "shared/**"
+
+command:
+  version:
+    includeScopes: false
+    includeCommitId: false
+    linkToCommits: false
+    workspaceChangelog: false
+    updateGitTagRefs: false
+    fetchTags: false
+
+  bootstrap:
+    # It seems so that running "pub get" in parallel has some issues (like
+    # https://github.com/dart-lang/pub/issues/3404). Disabling this feature
+    # makes the CI much more stable.
+    runPubGetInParallel: false
+
+scripts:
+
+  postclean:
+    exec: flutter clean
+
+  pubget:
+    exec: flutter pub get
+
+  format:
+    exec: dart format -l 120 --set-exit-if-changed .
+
+  analyze:
+    exec: flutter analyze
+
+  # Specific to generate
+
+  localization:translations:
+    run: >
+      flutter pub run easy_localization:generate -f keys -o locale_keys.g.dart -O lib/src/l10n -s en-EN.json -S assets/l10n &&
+      flutter pub run easy_localization:generate -f json -o codegen_loader.g.dart -O lib/src/l10n -S assets/l10n
+    packageFilters:
+      scope: 'localization_pkg'
+    exec:
+      failFast: true
+      concurrency: 1
+
+  generate-code:
+    run: melos exec --depends-on="build_runner" --order-dependents --fail-fast -- dart run build_runner build --delete-conflicting-outputs
+
+  rebuild:
+    run: >
+      melos run postclean &&
+      melos bootstrap &&
+      melos run localization:translations &&
+      melos run generate-code
+
+  # App build
+
+  build:sequence_studio:windows:
+    run: >
+      flutter config --enable-windows-desktop --enable-native-assets --no-version-check &&
+      dart run msix:create
+    packageFilters:
+      scope: 'sequence_studio'
+    exec:
+      failFast: true
+      concurrency: 1
+
+  build:sequence_studio:android:
+    run: >
+      flutter config --enable-android --enable-native-assets --no-version-check &&
+      flutter build appbundle --release --no-pub --tree-shake-icons --no-track-widget-creation --obfuscate --split-debug-info=symbol_mapping/android
+    packageFilters:
+      scope: 'sequence_studio'
+    exec:
+      failFast: true
+      concurrency: 1

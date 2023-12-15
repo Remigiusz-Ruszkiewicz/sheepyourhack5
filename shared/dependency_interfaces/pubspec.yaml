@@ -1,0 +1,19 @@
+name: dependency_interfaces
+description: dependencies interfaces
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mocktail: ^1.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  test: ^1.24.3

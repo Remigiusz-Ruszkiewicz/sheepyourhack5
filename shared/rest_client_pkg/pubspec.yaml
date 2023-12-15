@@ -1,0 +1,23 @@
+name: rest_client_pkg
+description: REST Client module
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  http: ^1.1.0
+  collection: ^1.17.1
+
+  # Modules
+  dependency_interfaces:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

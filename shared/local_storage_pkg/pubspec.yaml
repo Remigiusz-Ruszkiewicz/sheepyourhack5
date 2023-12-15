@@ -1,0 +1,29 @@
+name: local_storage_pkg
+description: local storage
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared_preferences: ^2.2.1
+  fast_immutable_collections: ^9.2.0
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
+
+  # Modules
+  dependency_interfaces:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^2.4.6
+  freezed: ^2.4.5
+  json_serializable: ^6.7.1
