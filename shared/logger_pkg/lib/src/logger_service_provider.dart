@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'package:dependency_interfaces/dependency_interfaces.dart' as dep
     show BackgroundServiceCommand, BackgroundWorker, BackgroundWrapper;
 import 'package:logger_pkg/src/helpers/constants.dart';

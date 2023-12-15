@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 

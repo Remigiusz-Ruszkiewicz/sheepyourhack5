@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'dart:async';
 import 'dart:io';
 
@@ -63,7 +58,7 @@ class LogRecorder {
 
 Future<String> _getLogDirPath(String applicationName) async {
   final appDocumentsDir = await getApplicationDocumentsDirectory();
-  return '${appDocumentsDir.path}/gossen_logs/$applicationName/';
+  return '${appDocumentsDir.path}/harmony_logs/$applicationName/';
 }
 
 String _getLogFilePath(String logDirPath, [String? suffix]) {

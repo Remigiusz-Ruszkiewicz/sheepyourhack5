@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'live_data_response.freezed.dart';
 part 'live_data_response.g.dart';

@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 final class LocalStorageParameters<T> {
   const LocalStorageParameters({required this.key, this.data, this.fromJson, this.predicate});
 

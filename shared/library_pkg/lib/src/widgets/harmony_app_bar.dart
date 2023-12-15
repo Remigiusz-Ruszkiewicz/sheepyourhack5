@@ -1,13 +1,8 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'package:async_builder/async_builder.dart';
 import 'package:flutter/material.dart';
 
-class GossenAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const GossenAppBar({
+class HarmonyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const HarmonyAppBar({
     required this.title,
     this.subTitle,
     this.leading,

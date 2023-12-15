@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'package:flutter/material.dart';
 import 'package:library_pkg/src/models/value_range.dart';
 import 'package:library_pkg/src/widgets/live_data/speedometer/speedometer_bloc.dart';

@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'package:dependency_interfaces/dependency_interfaces.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +68,7 @@ class _StartupInitializationState extends State<StartupInitialization> {
       return placeholder;
     }
     return Scaffold(
-      appBar: GossenAppBar(
+      appBar: HarmonyAppBar(
         title: widget._headerTitle!,
         automaticallyImplyLeading: false,
       ),
