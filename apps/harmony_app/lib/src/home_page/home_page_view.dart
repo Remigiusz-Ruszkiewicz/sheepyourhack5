@@ -1,4 +1,5 @@
 import 'package:async_builder/async_builder.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
@@ -21,26 +22,84 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<HomePageBloc>(
       instance: HomePageBloc.new,
-      child: Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.png'),
-            fit: BoxFit.cover,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            Builder(
+              builder: (context) => DrawerButton(
+                style: IconButton.styleFrom(iconSize: 36, foregroundColor: Colors.black),
+                onPressed: () => Scaffold.maybeOf(context)?.openEndDrawer(),
+              ),
+            ),
+          ],
+        ),
+        endDrawer: Drawer(
+          child: Container(
+            constraints: const BoxConstraints.expand(),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                ListTile(
+                  leading: const Icon(
+                    Icons.show_chart,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    'Statystyki',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.task,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    'Przydziel zadania',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ActivityListView()));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.task_alt,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    'Postępy',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.card_giftcard,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    'Nagrody',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ProgressListView()));
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            actions: const [
-              _MenuButton(),
-            ],
-          ),
-          body: const SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: _PageBody(),
-          ),
+        body: const SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: _PageBody(),
         ),
       ),
     );
@@ -144,48 +203,6 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
                 );
               },
             );
-          },
-        ),
-      ],
-    );
-  }
-}
-
-class _MenuButton extends StatelessWidget {
-  const _MenuButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return MenuAnchor(
-      builder: (context, controller, child) {
-        return IconButton(
-          iconSize: 36,
-          onPressed: () {
-            if (controller.isOpen) {
-              controller.close();
-            } else {
-              controller.open();
-            }
-          },
-          icon: const Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-        );
-      },
-      menuChildren: [
-        MenuItemButton(
-          leadingIcon: const Icon(Icons.info_outline),
-          child: const Text('Activity List'),
-          onPressed: () {
-            Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ActivityListView()));
-          },
-        ),
-        MenuItemButton(
-          leadingIcon: const Icon(Icons.feed_outlined),
-          child: const Text('Progress'),
-          onPressed: () {
-            Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ProgressListView()));
           },
         ),
       ],

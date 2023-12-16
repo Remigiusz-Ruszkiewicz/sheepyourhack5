@@ -32,8 +32,23 @@ class HarmonyApp extends StatelessWidget {
       locale: context.locale,
       debugShowCheckedModeBanner: false,
       title: 'Harmony',
-      theme: darkTheme,
-      home: const SafeArea(child: HomePageView()),
+      theme: darkTheme.copyWith(
+        scaffoldBackgroundColor: Colors.transparent,
+        appBarTheme: darkTheme.appBarTheme.copyWith(backgroundColor: Colors.transparent),
+        iconTheme: darkTheme.iconTheme.copyWith(color: Colors.black),
+      ),
+      home: SafeArea(
+        child: Container(
+          constraints: const BoxConstraints.expand(),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/background.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: const HomePageView(),
+        ),
+      ),
     );
   }
 }
