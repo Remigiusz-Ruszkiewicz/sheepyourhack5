@@ -136,7 +136,7 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
                 ),
                 itemBuilder: (context, index) {
                   final task = tasks[index];
-                  return LongPressDraggable<Task>(
+                  return Draggable<Task>(
                     data: task,
                     dragAnchorStrategy: pointerDragAnchorStrategy,
                     feedback: DraggingListItem(
