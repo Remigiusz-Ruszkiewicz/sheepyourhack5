@@ -48,6 +48,7 @@ class _PageBody extends StatelessWidget {
         AsyncBuilder<StatisticsPeriod>(
           stream: bloc.statisticsPeriodStream,
           initial: StatisticsPeriod.daily,
+          retain: true,
           builder: (context, value) {
             return Padding(
               padding: const EdgeInsets.all(25),
@@ -112,6 +113,7 @@ class _PageBody extends StatelessWidget {
           child: Center(
             child: AsyncBuilder<StatisticsPeriod>(
               stream: bloc.statisticsPeriodStream,
+              retain: true,
               builder: (context, statisticsPeriod) {
                 switch (statisticsPeriod) {
                   case StatisticsPeriod.daily:

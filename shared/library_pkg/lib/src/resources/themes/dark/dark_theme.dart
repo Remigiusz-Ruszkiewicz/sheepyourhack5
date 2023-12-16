@@ -25,7 +25,7 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
     onSurface: Color(0xFFE2E3DE),
     surfaceVariant: Color(0xFF414941),
     onSurfaceVariant: Color(0xFFC1C9BE),
-    outline: Color(0xFF005224),
+    outline: Colors.black,
     onInverseSurface: Color(0xFF1A1C19),
     inverseSurface: Color(0xFFE2E3DE),
     inversePrimary: Color(0xFF006D32),

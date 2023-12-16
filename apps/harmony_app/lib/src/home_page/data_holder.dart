@@ -50,6 +50,7 @@ const List<Task> _mock = [
     ),
     points: 5,
     activityType: ActivityType.education,
+    icon: Icons.menu_book_outlined,
   ),
   Task(
     name: 'Jazda na rowerze',
@@ -60,6 +61,7 @@ const List<Task> _mock = [
     ),
     activityType: ActivityType.sport,
     points: 10,
+    icon: Icons.menu_book_outlined,
   ),
   Task(
     name: 'Masaż',
@@ -70,6 +72,7 @@ const List<Task> _mock = [
     ),
     points: 5,
     activityType: ActivityType.relax,
+    icon: Icons.menu_book_outlined,
   ),
   Task(
     name: 'Mecz w koszykówkę',
@@ -80,6 +83,7 @@ const List<Task> _mock = [
     ),
     points: 15,
     activityType: ActivityType.integration,
+    icon: Icons.menu_book_outlined,
   ),
 ];
 
