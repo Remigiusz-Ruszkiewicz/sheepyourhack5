@@ -1,69 +1,79 @@
-import 'package:async_builder/async_builder.dart';
-import 'package:async_builder/init_builder.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:harmony_app/src/libra_widget/libra_bloc.dart';
 
 final GetIt _getIt = GetIt.instance;
 
+// if (bloc!.changeBalance.hasValue) {
+// final value = bloc.changeBalance.value;
+// bloc.changeBalance.add(-value);
+// return;
+// }
+// bloc.changeBalance.add(20);
 class LibraWidget extends StatelessWidget {
-  const LibraWidget({super.key});
+  const LibraWidget({super.key, required this.value});
+
+  final double value;
 
   @override
   Widget build(BuildContext context) {
-    return InitBuilder<LibraBloc>(
-      getter: _getBloc,
-      builder: (context, bloc) {
-        return Center(
-          child: Column(
-            children: [
-              MaterialButton(
-                child: const Text('dsadsa'),
-                onPressed: () {
-                  if (bloc!.changeBalance.hasValue) {
-                    final value = bloc.changeBalance.value;
-                    bloc.changeBalance.add(-value);
-                    return;
-                  }
-                  bloc.changeBalance.add(20);
-                },
-              ),
-              AsyncBuilder<double>(
-                stream: bloc!.changeBalance.stream,
-                initial: 0,
-                builder: (context, balanceValue) {
-                  return Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 34, top: 42),
-                        child: _AnimatedBuilder(
-                          transform: Matrix4.rotationZ(balanceValue! / 2),
-                          child: const _LibraWidget('assets/libra/wage_bar.png', width: 100),
-                        ),
-                      ),
-                      _AnimatedBuilder(
-                        transform: Matrix4.translationValues(0, -balanceValue, 0),
-                        child: const _LibraWidget('assets/libra/left_wage.png'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 34, top: 22),
-                        child: _AnimatedBuilder(
-                          transform: Matrix4.translationValues(0, balanceValue, 0),
-                          child: const _LibraWidget('assets/libra/right_wage.png'),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 12),
-                        child: _LibraWidget('assets/libra/main_wage.png'),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ],
+    print(value * (3.14159 / 180.0));
+    return Center(
+      child: Stack(
+        alignment: AlignmentDirectional.topCenter,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 4, top: 42),
+            child: _AnimatedBuilder(
+              // transform: Matrix4.skew(value, value),
+              transform: Matrix4.rotationZ(value * (3.14159 / 180.0)),
+              child: const _LibraWidget('assets/libra/wage_bar.png', width: 80),
+            ),
           ),
-        );
-      },
+          Positioned(
+            left: 26,
+            top: 20,
+            child: _AnimatedBuilder(
+              transform: Matrix4.translationValues(0, value, 0),
+              child: const _LibraWidget('assets/libra/right_wage.png'),
+            ),
+          ),
+          _AnimatedBuilder(
+            transform: Matrix4.translationValues(0, -value, 0),
+            child: const _LibraWidget('assets/libra/left_wage.png'),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 12),
+            child: _LibraWidget('assets/libra/main_wage.png'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Matrix4 smallRotationMatrix(double deltaTheta) {
+    double cosTheta = cos(deltaTheta);
+    double sinTheta = sin(deltaTheta);
+
+    return Matrix4(
+      cosTheta,
+      -sinTheta,
+      0.0,
+      0.0,
+      sinTheta,
+      cosTheta,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
     );
   }
 }
@@ -95,7 +105,7 @@ class _LibraWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       path,
-      width: width ?? 150,
+      width: width ?? 140,
     );
   }
 }
