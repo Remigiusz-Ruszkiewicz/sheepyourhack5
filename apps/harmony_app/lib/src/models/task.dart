@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:harmony_app/src/enums/activity_type.dart';
 
-@immutable
+part 'task.freezed.dart';
+part 'task.g.dart';
+
+@freezed
 class Task {
   const Task({
     required this.points,
@@ -9,6 +13,7 @@ class Task {
     required this.uid,
     required this.widget,
     required this.activityType,
+    this.isSelected = false,
   });
 
   final double points;
@@ -16,6 +21,7 @@ class Task {
   final String uid;
   final Widget widget;
   final ActivityType activityType;
+  final bool isSelected;
 
   String get formattedPoints => '+ $points';
 }
