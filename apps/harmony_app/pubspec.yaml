@@ -24,6 +24,7 @@ dependencies:
   async: ^2.11.0
   carousel_slider: ^4.2.1
   flutter_svg: ^2.0.9
+  percent_indicator: ^4.2.3
 
   # Modules
   dependency_interfaces:
