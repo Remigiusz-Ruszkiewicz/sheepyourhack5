@@ -28,13 +28,7 @@ dependencies:
   # Modules
   dependency_interfaces:
   localization_pkg:
-  permission_handler_pkg:
   library_pkg:
-  background_worker_pkg:
-  local_storage_pkg:
-  rest_client_pkg:
-  logger_pkg:
-  platform_info_pkg:
 
 dev_dependencies:
   flutter_test:
@@ -47,9 +41,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/libra/left_wage.png
-    - assets/libra/right_wage.png
-    - assets/libra/main_wage.png
-    - assets/libra/wage_bar.png
     - assets/
     - assets/svg/
+    - assets/libra/

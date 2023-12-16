@@ -29,7 +29,7 @@ class HarmonyDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (final route in drawerRoutes)
-                if (_drawerEntries[route] case final ({String title, Widget Function() builder}) entry)
+                if (_drawerEntries[route] case final ({String title, ValueGetter<Widget> builder}) entry)
                   DrawerEntry(
                     iconData: route.drawerIcon,
                     title: entry.title,
@@ -45,10 +45,10 @@ class HarmonyDrawer extends StatelessWidget {
   }
 }
 
-final Map<DrawerRoute, ({String title, Widget Function() builder})> _drawerEntries = {
-  DrawerRoute.home: (title: 'Dashboard', builder: () => const HomePageView()),
-  DrawerRoute.activityAssign: (title: 'Przydziel zadania', builder: () => const ActivityListView()),
-  DrawerRoute.progress: (title: 'Ranking', builder: () => const RankingView()),
-  DrawerRoute.rewards: (title: 'Nagrody', builder: () => const ProgressListView()),
-  DrawerRoute.statistics: (title: 'Statystyki', builder: () => const StatisticsView()),
+const Map<DrawerRoute, ({String title, ValueGetter<Widget> builder})> _drawerEntries = {
+  DrawerRoute.home: (title: 'Dashboard', builder: HomePageView.new),
+  DrawerRoute.activityAssign: (title: 'Przydziel zadania', builder: ActivityListView.new),
+  DrawerRoute.progress: (title: 'Ranking', builder: RankingView.new),
+  DrawerRoute.rewards: (title: 'Nagrody', builder: ProgressListView.new),
+  DrawerRoute.statistics: (title: 'Statystyki', builder: StatisticsView.new),
 };
