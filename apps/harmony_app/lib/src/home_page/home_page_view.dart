@@ -19,26 +19,84 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<HomePageBloc>(
       instance: HomePageBloc.new,
-      child: Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.png'),
-            fit: BoxFit.cover,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            Builder(
+              builder: (context) => DrawerButton(
+                style: IconButton.styleFrom(iconSize: 36, foregroundColor: Colors.black),
+                onPressed: () => Scaffold.maybeOf(context)?.openEndDrawer(),
+              ),
+            ),
+          ],
+        ),
+        endDrawer: Drawer(
+          child: Container(
+            constraints: const BoxConstraints.expand(),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                ListTile(
+                  leading: const Icon(
+                    Icons.show_chart,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    'Statystyki',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.task,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    'Przydziel zadania',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ActivityListView()));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.task_alt,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    'Postępy',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.card_giftcard,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    'Nagrody',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ProgressListView()));
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            actions: const [
-              _MenuButton(),
-            ],
-          ),
-          body: const SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: _PageBody(),
-          ),
+        body: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: _PageBody(),
         ),
       ),
     );
@@ -51,34 +109,36 @@ class _PageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = _getIt.get<HomePageBloc>();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        AsyncBuilder<String>(
-          stream: bloc.timeStream,
-          retain: true,
-          initial: '',
-          builder: (_, time) => Text(
-            time!,
-            style: const TextStyle(
-              fontSize: 36,
-              color: Colors.black,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          AsyncBuilder<String>(
+            stream: bloc.timeStream,
+            retain: true,
+            initial: '',
+            builder: (_, time) => Text(
+              time!,
+              style: const TextStyle(
+                fontSize: 36,
+                color: Colors.black,
+              ),
             ),
           ),
-        ),
-        AsyncBuilder<String>(
-          stream: bloc.hintTextStream,
-          retain: true,
-          builder: (_, hint) => Text(
-            hint!,
-            style: const TextStyle(
-              fontSize: 24,
-              color: Colors.black,
+          AsyncBuilder<String>(
+            stream: bloc.hintTextStream,
+            retain: true,
+            builder: (_, hint) => Text(
+              hint!,
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.black,
+              ),
             ),
           ),
-        ),
-        _DraggableList(bloc),
-      ],
+          _DraggableList(bloc),
+        ],
+      ),
     );
   }
 }
@@ -108,10 +168,15 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: DragTarget<Task>(
               builder: (context, candidateItems, rejectedItems) {
+                final value = widget.bloc.libreLevelSubject.valueOrNull ?? 0;
                 if (candidateItems.isEmpty) {
-                  return const ScaleWidget();
+                  print('emptyDupa $value');
+                  return ScaleWidget(value: value);
                 }
-                return ScaleWidget(value: double.parse(candidateItems.first?.totalPriceCents.toString() ?? '0'));
+                print('dupa $value');
+                return ScaleWidget(
+                  value: value + candidateItems.first!.points,
+                );
               },
               onAccept: (item) {
                 setState(() {
@@ -121,73 +186,35 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
             ),
           ),
         ),
-        AsyncBuilder<List<Task>>(
-          stream: widget.bloc.tasksStream,
-          retain: true,
-          builder: (context, tasks) {
-            return ListView.separated(
-              padding: EdgeInsets.zero,
-              itemCount: tasks!.length,
-              shrinkWrap: true,
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 12);
-              },
-              itemBuilder: (context, index) {
-                final task = tasks[index];
-                return LongPressDraggable<Task>(
-                  data: task,
-                  dragAnchorStrategy: pointerDragAnchorStrategy,
-                  feedback: DraggingListItem(
-                    dragKey: _draggableKey,
-                    task: task,
-                  ),
-                  child: MenuListItem(task: task),
-                );
-              },
-            );
-          },
-        ),
-      ],
-    );
-  }
-}
-
-class _MenuButton extends StatelessWidget {
-  const _MenuButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return MenuAnchor(
-      builder: (context, controller, child) {
-        return IconButton(
-          iconSize: 36,
-          onPressed: () {
-            if (controller.isOpen) {
-              controller.close();
-            } else {
-              controller.open();
-            }
-          },
-          icon: const Icon(
-            Icons.menu,
-            color: Colors.black,
+        SingleChildScrollView(
+          primary: true,
+          child: AsyncBuilder<List<Task>>(
+            stream: widget.bloc.tasksStream,
+            retain: true,
+            builder: (context, tasks) {
+              return ListView.separated(
+                padding: EdgeInsets.zero,
+                itemCount: tasks!.length,
+                shrinkWrap: true,
+                primary: true,
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+                itemBuilder: (context, index) {
+                  final task = tasks[index];
+                  return LongPressDraggable<Task>(
+                    data: task,
+                    dragAnchorStrategy: pointerDragAnchorStrategy,
+                    feedback: DraggingListItem(
+                      dragKey: _draggableKey,
+                      task: task,
+                    ),
+                    child: MenuListItem(task: task),
+                  );
+                },
+              );
+            },
           ),
-        );
-      },
-      menuChildren: [
-        MenuItemButton(
-          leadingIcon: const Icon(Icons.info_outline),
-          child: const Text('Activity List'),
-          onPressed: () {
-            Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ActivityListView()));
-          },
-        ),
-        MenuItemButton(
-          leadingIcon: const Icon(Icons.feed_outlined),
-          child: const Text('Progress'),
-          onPressed: () {
-            Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ProgressListView()));
-          },
         ),
       ],
     );

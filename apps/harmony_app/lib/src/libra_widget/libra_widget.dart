@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:harmony_app/src/libra_widget/libra_bloc.dart';
@@ -19,7 +17,6 @@ class LibraWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(value * (3.14159 / 180.0));
     return Center(
       child: Stack(
         alignment: AlignmentDirectional.topCenter,
@@ -27,22 +24,25 @@ class LibraWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 4, top: 42),
             child: _AnimatedBuilder(
-              // transform: Matrix4.skew(value, value),
               transform: Matrix4.rotationZ(value * (3.14159 / 180.0)),
-              child: const _LibraWidget('assets/libra/wage_bar.png', width: 80),
+              child: const _LibraWidget('assets/libra/wage_bar.png', width: 100),
             ),
           ),
           Positioned(
-            left: 26,
+            left: 28,
             top: 20,
             child: _AnimatedBuilder(
               transform: Matrix4.translationValues(0, value, 0),
               child: const _LibraWidget('assets/libra/right_wage.png'),
             ),
           ),
-          _AnimatedBuilder(
-            transform: Matrix4.translationValues(0, -value, 0),
-            child: const _LibraWidget('assets/libra/left_wage.png'),
+          Positioned(
+            right: 8,
+            top: -2,
+            child: _AnimatedBuilder(
+              transform: Matrix4.translationValues(0, -value, 0),
+              child: const _LibraWidget('assets/libra/left_wage.png'),
+            ),
           ),
           const Padding(
             padding: EdgeInsets.only(left: 12),
@@ -50,30 +50,6 @@ class LibraWidget extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Matrix4 smallRotationMatrix(double deltaTheta) {
-    double cosTheta = cos(deltaTheta);
-    double sinTheta = sin(deltaTheta);
-
-    return Matrix4(
-      cosTheta,
-      -sinTheta,
-      0.0,
-      0.0,
-      sinTheta,
-      cosTheta,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
     );
   }
 }
@@ -105,7 +81,7 @@ class _LibraWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       path,
-      width: width ?? 140,
+      width: width ?? 150,
     );
   }
 }

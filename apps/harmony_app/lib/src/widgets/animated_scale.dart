@@ -20,12 +20,10 @@ class ScaleWidget extends StatelessWidget {
             horizontal: 12,
             vertical: 24,
           ),
-          child: ClipOval(
-            child: SizedBox(
-              width: 150,
-              height: 146,
-              child: LibraWidget(value: value),
-            ),
+          child: SizedBox(
+            width: 150,
+            height: 150,
+            child: LibraWidget(value: value),
           ),
         ),
       ),

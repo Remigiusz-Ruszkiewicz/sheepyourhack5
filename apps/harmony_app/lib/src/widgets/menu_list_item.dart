@@ -13,54 +13,27 @@ class MenuListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 12,
-      borderRadius: BorderRadius.circular(20),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Center(
               child: SizedBox(
-                width: 80,
-                height: 80,
-                child: Center(
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.easeInOut,
-                    height: isDepressed ? 75 : 80,
-                    width: isDepressed ? 75 : 80,
-                    child: Image(
-                      image: task.imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                height: 60,
+                width: 90,
+                child: task.icon,
               ),
             ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    task.name,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    task.formattedTotalItemPrice,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                  ),
-                ],
-              ),
+          ),
+          Expanded(
+            child: Text(
+              task.name,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18, color: Colors.black),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
