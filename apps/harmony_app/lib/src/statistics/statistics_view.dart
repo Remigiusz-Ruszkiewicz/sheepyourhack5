@@ -1,609 +1,130 @@
+import 'package:async_builder/async_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:harmony_app/src/enums/drawer_route.dart';
+import 'package:harmony_app/src/enums/statistics_period.dart';
+import 'package:harmony_app/src/statistics/statistics_bloc.dart';
 import 'package:harmony_app/src/widgets/harmony_page.dart';
+import 'package:library_pkg/library_pkg.dart';
+
+final _getIt = GetIt.instance;
 
 class StatisticsView extends StatelessWidget {
   const StatisticsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return HarmonyPage(
-      drawerRoutes: const [
-        DrawerRoute.home,
-        DrawerRoute.progress,
-        DrawerRoute.activityAssign,
-        DrawerRoute.rewards,
-      ],
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SizedBox(
-          width: 360,
-          height: 740,
-          child: Stack(
-            children: [
-              Positioned(
-                left: -74,
-                top: 298,
-                child: Container(
-                  width: 160,
-                  height: 115,
-                  decoration: const ShapeDecoration(
-                    color: Color(0x16777DF2),
-                    shape: OvalBorder(),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 307,
-                top: 22,
-                child: SizedBox(
-                  width: 36,
-                  height: 22,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 0,
-                        top: 0,
-                        child: Container(
-                          width: 36,
-                          height: 4,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFF353A70),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 0,
-                        top: 9,
-                        child: Container(
-                          width: 36,
-                          height: 4,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFF353A70),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 0,
-                        top: 18,
-                        child: Container(
-                          width: 36,
-                          height: 4,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFF353A70),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                left: -129,
-                top: -50,
-                child: Container(
-                  width: 429,
-                  height: 289,
-                  decoration: const ShapeDecoration(
-                    color: Color(0x16777DF2),
-                    shape: OvalBorder(),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 234,
-                top: 144,
-                child: Container(
-                  width: 91,
-                  height: 65,
-                  decoration: const ShapeDecoration(
-                    color: Color(0x16777DF2),
-                    shape: OvalBorder(),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 20,
-                top: 159,
-                child: Container(
-                  width: 323,
-                  height: 96,
-                  decoration: const ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(15),
-                        bottomRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 150,
-                top: 180,
-                child: SizedBox(
-                  width: 75,
-                  height: 26,
-                  child: Text(
-                    'Dzień',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 20,
-                top: 125,
-                child: Container(
-                  width: 323,
-                  height: 43,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    shadows: const [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 4,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 147,
-                top: 134,
-                child: SizedBox(
-                  width: 75,
-                  height: 26,
-                  child: Text(
-                    'Tydzień',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 300,
-                top: 131,
-                child: Container(
-                  width: 28,
-                  height: 28,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(),
-                  child: const Stack(),
-                ),
-              ),
-              const Positioned(
-                left: 77,
-                top: 52,
-                child: SizedBox(
-                  width: 215,
-                  child: Text(
-                    'Statystyki',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF0D0D0D),
-                      fontSize: 22,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 99,
-                top: 866,
-                child: SizedBox(
-                  width: 215,
-                  child: Text(
-                    'Wybierz aktywność z listy ',
-                    style: TextStyle(
-                      color: Color(0xFF0D0D0D),
-                      fontSize: 22,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 193,
-                top: 322,
-                child: Container(
-                  width: 311,
-                  height: 230,
-                  decoration: const ShapeDecoration(
-                    color: Color(0x14777DF2),
-                    shape: OvalBorder(),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 147,
-                top: 219,
-                child: SizedBox(
-                  width: 75,
-                  height: 26,
-                  child: Text(
-                    'Miesiąc',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 38.64,
-                top: 738.72,
-                child: Opacity(
-                  opacity: 0.22,
-                  child: Transform(
-                    transform: Matrix4.identity()
-                      ..translate(0.0)
-                      ..rotateZ(-0.24),
-                    child: Container(
-                      width: 30.25,
-                      height: 28.70,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                top: 304,
-                child: Container(
-                  width: 360,
-                  height: 436,
-                  decoration: const ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 69,
-                top: 646,
-                child: SizedBox(
-                  width: 75,
-                  height: 26,
-                  child: Text(
-                    'Relaks',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 69,
-                top: 620,
-                child: SizedBox(
-                  width: 75,
-                  height: 26,
-                  child: Text(
-                    'Praca',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 41,
-                top: 653,
-                child: Container(
-                  width: 14,
-                  height: 14,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF2F3273),
-                    shape: OvalBorder(),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 147,
-                top: 134,
-                child: SizedBox(
-                  width: 75,
-                  height: 26,
-                  child: Text(
-                    'Tydzień',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 22,
-                top: 322,
-                child: Container(
-                  width: 315,
-                  height: 275,
-                  decoration: ShapeDecoration(
-                    color: const Color(0xFFF8F8FE),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 293,
-                top: 500,
-                child: Container(
-                  width: 13,
-                  height: 32,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF2F3273),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 293,
-                top: 413,
-                child: Container(
-                  width: 13,
-                  height: 55,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF777DF2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 239,
-                top: 489,
-                child: Container(
-                  width: 13,
-                  height: 22,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF2F3273),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 239,
-                top: 424,
-                child: Container(
-                  width: 13,
-                  height: 43,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF777DF2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 175,
-                top: 511,
-                child: Container(
-                  width: 13,
-                  height: 43,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF2F3273),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 175,
-                top: 386,
-                child: Container(
-                  width: 13,
-                  height: 82,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF777DF2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 114,
-                top: 500,
-                child: Container(
-                  width: 13,
-                  height: 32,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF2F3273),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 44,
-                top: 551,
-                child: SizedBox(
-                  width: 283,
-                  height: 26,
-                  child: Text(
-                    'Pon       Wtr        Śr          Czw       Pt  ',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 100,
-                top: 330,
-                child: SizedBox(
-                  width: 170,
-                  height: 40,
-                  child: Text(
-                    '12.06 - 19.06. 2023',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 71,
-                top: 659,
-                child: Container(
-                  width: 417,
-                  height: 228,
-                  decoration: const ShapeDecoration(
-                    color: Color(0x0C777DF2),
-                    shape: OvalBorder(),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 62,
-                top: 539,
-                child: Container(
-                  width: 13,
-                  height: 71,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF2F3273),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 62,
-                top: 397,
-                child: Container(
-                  width: 13,
-                  height: 71,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF777DF2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 114,
-                top: 413,
-                child: Container(
-                  width: 13,
-                  height: 55,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF777DF2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 41,
-                top: 626,
-                child: Container(
-                  width: 14,
-                  height: 14,
-                  decoration: const ShapeDecoration(
-                    color: Color(0xFF777DF2),
-                    shape: OvalBorder(),
-                  ),
-                ),
-              ),
-            ],
+    return const BlocProvider<StatisticsBloc>(
+      instance: StatisticsBloc.new,
+      child: HarmonyPage(
+        drawerRoutes: [
+          DrawerRoute.home,
+          DrawerRoute.progress,
+          DrawerRoute.activityAssign,
+          DrawerRoute.rewards,
+        ],
+        body: _PageBody(),
+      ),
+    );
+  }
+}
+
+class _PageBody extends StatelessWidget {
+  const _PageBody();
+
+  @override
+  Widget build(BuildContext context) {
+    final bloc = _getIt.get<StatisticsBloc>();
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Text(
+            'Statystyki',
+            style: TextStyle(fontSize: 20, color: Colors.black),
           ),
         ),
-      ),
+        AsyncBuilder<StatisticsPeriod>(
+          stream: bloc.statisticsPeriodStream,
+          initial: StatisticsPeriod.daily,
+          builder: (context, value) {
+            return Padding(
+              padding: const EdgeInsets.all(25),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                child: DropdownButton<StatisticsPeriod>(
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                    color: Colors.black,
+                  ),
+                  underline: const ColoredBox(color: Colors.transparent),
+                  dropdownColor: Colors.white,
+                  isExpanded: true,
+                  value: value,
+                  items: const [
+                    DropdownMenuItem<StatisticsPeriod>(
+                      value: StatisticsPeriod.daily,
+                      child: Center(
+                          child: Text(
+                        'Dzień',
+                        style: TextStyle(color: Colors.black),
+                      )),
+                    ),
+                    DropdownMenuItem<StatisticsPeriod>(
+                      value: StatisticsPeriod.weekly,
+                      child: Center(
+                          child: Text(
+                        'Tydzień',
+                        style: TextStyle(color: Colors.black),
+                      )),
+                    ),
+                    DropdownMenuItem<StatisticsPeriod>(
+                      value: StatisticsPeriod.monthly,
+                      child: Center(
+                          child: Text(
+                        'Miesiąc',
+                        style: TextStyle(color: Colors.black),
+                      )),
+                    ),
+                  ],
+                  onChanged: (StatisticsPeriod? value) => bloc.setStatisticsPeriodValue(value!),
+                ),
+              ),
+            );
+          },
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Center(
+            child: AsyncBuilder<StatisticsPeriod>(
+              stream: bloc.statisticsPeriodStream,
+              builder: (context, statisticsPeriod) {
+                switch (statisticsPeriod) {
+                  case StatisticsPeriod.daily:
+                    return SvgPicture.asset('assets/svg/Group_25.svg');
+                  case StatisticsPeriod.weekly:
+                    return SvgPicture.asset('assets/svg/Group_27.svg');
+                  case StatisticsPeriod.monthly:
+                    return SvgPicture.asset('assets/svg/Group_26.svg');
+                  case null:
+                    return SvgPicture.asset('assets/svg/Group_25.svg');
+                }
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
