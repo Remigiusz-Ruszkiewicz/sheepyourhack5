@@ -76,26 +76,29 @@ class _PageBody extends StatelessWidget {
                     DropdownMenuItem<StatisticsPeriod>(
                       value: StatisticsPeriod.daily,
                       child: Center(
-                          child: Text(
-                        'Dzień',
-                        style: TextStyle(color: Colors.black),
-                      )),
+                        child: Text(
+                          'Dzień',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
                     ),
                     DropdownMenuItem<StatisticsPeriod>(
                       value: StatisticsPeriod.weekly,
                       child: Center(
-                          child: Text(
-                        'Tydzień',
-                        style: TextStyle(color: Colors.black),
-                      )),
+                        child: Text(
+                          'Tydzień',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
                     ),
                     DropdownMenuItem<StatisticsPeriod>(
                       value: StatisticsPeriod.monthly,
                       child: Center(
-                          child: Text(
-                        'Miesiąc',
-                        style: TextStyle(color: Colors.black),
-                      )),
+                        child: Text(
+                          'Miesiąc',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
                     ),
                   ],
                   onChanged: (StatisticsPeriod? value) => bloc.setStatisticsPeriodValue(value!),
