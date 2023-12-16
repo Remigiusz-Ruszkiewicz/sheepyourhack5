@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:harmony_app/src/activity_list/activity_list_view.dart';
 import 'package:harmony_app/src/home_page/home_page_bloc.dart';
+import 'package:harmony_app/src/progress_list/progress_list_view.dart';
 import 'package:library_pkg/library_pkg.dart';
 import 'package:localization_pkg/localization_pkg.dart';
 
@@ -17,8 +19,25 @@ class HomePageView extends StatelessWidget {
         appBar: AppBar(
           leading: const _MenuButton(),
         ),
-        body: const SingleChildScrollView(
-          child: Placeholder(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              MaterialButton(
+                child: Text('ActivityListView'),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ActivityListView()),
+                ),
+              ),
+              MaterialButton(
+                child: Text('ProgressListView'),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProgressListView()),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
