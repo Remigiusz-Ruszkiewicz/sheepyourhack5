@@ -1,45 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:harmony_app/src/home_page/home_page_view.dart';
-import 'package:harmony_app/src/progress_list/progress_list_view.dart';
+import 'package:harmony_app/src/widgets/harmony_page.dart';
 
 class ActivityListView extends StatelessWidget {
   const ActivityListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('')),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePageView()));
-              },
-            ),
-            ListTile(
-              title: const Text('Activity List'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ActivityListView()));
-              },
-            ),
-            ListTile(
-              title: const Text('Progress'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProgressListView()));
-              },
-            ),
-          ],
-        ),
-      ),
+    return HarmonyPage(
+      drawerIcons: const [
+        Icons.show_chart,
+        Icons.dashboard,
+        Icons.task_alt,
+        Icons.card_giftcard,
+      ],
       body: Container(
         clipBehavior: Clip.antiAlias,
         decoration: const BoxDecoration(color: Color(0xFFE9E9F2)),
