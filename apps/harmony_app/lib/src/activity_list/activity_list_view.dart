@@ -18,62 +18,70 @@ class ActivityListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<Bloc>(
+    return BlocBuilder<Bloc>(
       instance: Bloc.new,
-      child: HarmonyPage(
-        drawerRoutes: const [
-          DrawerRoute.statistics,
-          DrawerRoute.home,
-          DrawerRoute.progress,
-          DrawerRoute.rewards,
-        ],
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
-          child: Column(
-            children: [
-              const Text(
-                'Wybierz aktywność z listy',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 36),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 24),
-                child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Enter your text here',
-                    hintStyle: TextStyle(color: Colors.black),
-                    focusColor: Colors.transparent,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
+      builder: (context, bloc) {
+        return HarmonyPage(
+          drawerRoutes: const [
+            DrawerRoute.statistics,
+            DrawerRoute.home,
+            DrawerRoute.progress,
+            DrawerRoute.rewards,
+          ],
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+            child: Column(
+              children: [
+                const Text(
+                  'Wybierz aktywność z listy',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black, fontSize: 36),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: TextField(
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: 'Enter your text here',
+                      hintStyle: TextStyle(color: Colors.black),
+                      focusColor: Colors.transparent,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              FluentListView<MapEntry<Task, bool>>(
-                retain: true,
-                stream: GetIt.I.get<Bloc>().tasksSubject.stream,
-                // itemComparator: EqualityBy<Task, String>((entry) => entry.uid).equals,
-                waiting: (_) => const Center(child: CircularProgressIndicator()),
-                itemBuilder: (_, index, entry) => InkWell(
-                  onTap: () {
-                    final a = GetIt.I.get<Bloc>().tasksSubject.value.toList();
-                    final item = !entry.value;
-                    a[index] = MapEntry(entry.key, item);
-                    GetIt.I.get<Bloc>().tasksSubject.add(a);
-                  },
-                  child: MenuListItem(task: entry!.key),
+                Expanded(
+                  child: FluentListView<Task>(
+                    retain: true,
+                    stream: bloc.tasksSubject.stream,
+                    waiting: (_) => const Center(child: CircularProgressIndicator()),
+                    itemBuilder: (_, index, entry) => InkWell(
+                      onTap: () {
+                        final a = bloc.tasksSubject.value.toList();
+                        a[index] = entry.copyWith(
+                          widget: BadgeWidget(
+                            icon: entry.icon,
+                            pointsValue: int.parse(entry.points.toStringAsFixed(0)),
+                            isSelected: !entry.isSelected,
+                          ),
+                        );
+                        bloc.tasksSubject.add(a);
+                      },
+                      child: MenuListItem(task: entry!),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -81,7 +89,7 @@ class ActivityListView extends StatelessWidget {
 class Bloc implements Disposable {
   Bloc();
 
-  BehaviorSubject<List<MapEntry<Task, bool>>> tasksSubject = BehaviorSubject<List<MapEntry<Task, bool>>>();
+  BehaviorSubject<List<Task>> tasksSubject = BehaviorSubject<List<Task>>.seeded(_mock);
 
   @override
   Future<void> onDispose() async {
@@ -89,57 +97,49 @@ class Bloc implements Disposable {
   }
 }
 
-const List<MapEntry<Task, bool>> _mock = [
-  MapEntry(
-    Task(
-      name: 'Czytanie książki',
-      uid: '1',
-      widget: BadgeWidget(
-        icon: Icons.menu_book_outlined,
-        pointsValue: 5,
-      ),
-      points: 5,
-      activityType: ActivityType.education,
+const List<Task> _mock = [
+  Task(
+    name: 'Czytanie książki',
+    uid: '1',
+    widget: BadgeWidget(
+      icon: Icons.menu_book_outlined,
+      pointsValue: 5,
     ),
-    false,
+    points: 5,
+    activityType: ActivityType.education,
+    icon: Icons.menu_book_outlined,
   ),
-  MapEntry(
-    Task(
-      name: 'Czytanie książki',
-      uid: '1',
-      widget: BadgeWidget(
-        icon: Icons.menu_book_outlined,
-        pointsValue: 5,
-      ),
-      points: 5,
-      activityType: ActivityType.education,
+  Task(
+    name: 'Czytanie książki',
+    uid: '1',
+    widget: BadgeWidget(
+      icon: Icons.menu_book_outlined,
+      pointsValue: 5,
     ),
-    false,
+    points: 5,
+    activityType: ActivityType.education,
+    icon: Icons.menu_book_outlined,
   ),
-  MapEntry(
-    Task(
-      name: 'Czytanie książki',
-      uid: '1',
-      widget: BadgeWidget(
-        icon: Icons.menu_book_outlined,
-        pointsValue: 5,
-      ),
-      points: 5,
-      activityType: ActivityType.education,
+  Task(
+    name: 'Czytanie książki',
+    uid: '1',
+    widget: BadgeWidget(
+      icon: Icons.menu_book_outlined,
+      pointsValue: 5,
     ),
-    false,
+    points: 5,
+    activityType: ActivityType.education,
+    icon: Icons.menu_book_outlined,
   ),
-  MapEntry(
-    Task(
-      name: 'Czytanie książki',
-      uid: '1',
-      widget: BadgeWidget(
-        icon: Icons.menu_book_outlined,
-        pointsValue: 5,
-      ),
-      points: 5,
-      activityType: ActivityType.education,
+  Task(
+    name: 'Czytanie książki',
+    uid: '1',
+    widget: BadgeWidget(
+      icon: Icons.menu_book_outlined,
+      pointsValue: 5,
     ),
-    false,
+    points: 5,
+    activityType: ActivityType.education,
+    icon: Icons.menu_book_outlined,
   ),
 ];

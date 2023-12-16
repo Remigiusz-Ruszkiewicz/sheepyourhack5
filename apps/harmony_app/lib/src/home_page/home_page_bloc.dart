@@ -4,8 +4,6 @@ import 'package:harmony_app/src/home_page/data_holder.dart';
 import 'package:harmony_app/src/models/task.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../widgets/badge_widget.dart';
-
 class HomePageBloc implements Disposable {
   HomePageBloc() {
     Stream.periodic(const Duration(seconds: 1), (_) => _formatTime(DateTime.now()))
