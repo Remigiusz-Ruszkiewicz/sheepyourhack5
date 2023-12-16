@@ -3,6 +3,7 @@ import 'package:comprehensive_utils/comprehensive_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:harmony_app/src/activity_list/activity_list_bloc.dart';
 import 'package:harmony_app/src/enums/drawer_route.dart';
+import 'package:harmony_app/src/home_page/home_page_view.dart';
 import 'package:harmony_app/src/models/task.dart';
 import 'package:harmony_app/src/widgets/badge_widget.dart';
 import 'package:harmony_app/src/widgets/harmony_page.dart';
@@ -26,21 +27,27 @@ class ActivityListView extends StatelessWidget {
           ],
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.only(left: 32, right: 32, bottom: 16),
-            child: OutlinedButton(
-              style: OutlinedButtonTheme.of(context).style?.copyWith(
-                    backgroundColor: const MaterialStatePropertyAll<Color>(Colors.purple),
-                    foregroundColor: const MaterialStatePropertyAll<Color>(Colors.purple),
-                  ),
-              onPressed: () {},
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Dodaj do moich aktywności'),
-                  Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Icon(Icons.add),
-                  ),
-                ],
+            child: MaterialButton(
+              color: const Color.fromRGBO(119, 125, 242, 1),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              onPressed: () {
+                bloc.saveTasks();
+                Navigator.of(context)
+                  ..pop()
+                  ..push(MaterialPageRoute<void>(builder: (_) => const HomePageView()));
+              },
+              child: const SizedBox(
+                height: 50,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Dodaj do moich aktywności'),
+                    Padding(
+                      padding: EdgeInsets.only(left: 8),
+                      child: Icon(Icons.add),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -60,7 +67,7 @@ class ActivityListView extends StatelessWidget {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: 'Enter your text here',
+                      hintText: 'Szukaj',
                       hintStyle: TextStyle(color: Colors.black),
                       focusColor: Colors.transparent,
                       focusedBorder: OutlineInputBorder(
