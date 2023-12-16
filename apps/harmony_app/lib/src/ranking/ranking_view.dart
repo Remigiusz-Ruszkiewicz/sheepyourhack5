@@ -15,81 +15,112 @@ class RankingView extends StatelessWidget {
         DrawerRoute.activityAssign,
         DrawerRoute.statistics,
       ],
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              'Ranking',
-              style: TextStyle(fontSize: 20, color: Colors.black),
-            ),
-          ),
-          SvgPicture.asset('assets/svg/Group_12.svg'),
-          const Text(
-            '255 pkt.',
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
-          const Text(
-            'NO.14',
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 60,
-            child: ColoredBox(
-              color: const Color.fromRGBO(119, 125, 242, 1),
-              child: Row(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(
-                      '1',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  SvgPicture.asset('assets/svg/Group_13.svg'),
-                  const Spacer(),
-                  const Padding(padding: EdgeInsets.symmetric(horizontal: 15), child: Text('Karolina K.')),
-                  const Spacer(),
-                  const Text(
-                    '525',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: SvgPicture.asset('assets/svg/Group_14.svg'),
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Text(
+                'Ranking',
+                style: TextStyle(fontSize: 20, color: Colors.black),
               ),
             ),
-          ),
-          const RankingCard(
-            position: 2,
-            iconPath: 'assets/svg/Group_15.svg',
-            name: 'Marcin Z.',
-            points: 501,
-          ),
-          const RankingCard(
-            position: 3,
-            iconPath: 'assets/svg/Group_16.svg',
-            name: 'Zofia L.',
-            points: 473,
-          ),
-          const RankingCard(
-            position: 4,
-            iconPath: 'assets/svg/Group_17.svg',
-            name: 'Konrad H.',
-            points: 457,
-            isGoingDown: true,
-          ),
-          const RankingCard(
-            position: 5,
-            iconPath: 'assets/svg/Group_18.svg',
-            name: 'Rafał P.',
-            points: 420,
-            isGoingDown: true,
-          ),
-        ],
+            SvgPicture.asset('assets/svg/Group_12.svg'),
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Text(
+                '255 pkt.',
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 20, top: 10),
+              child: Text(
+                'NO.14',
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 30,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(15),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 60,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withOpacity(0.5), spreadRadius: 1, blurRadius: 10),
+                ],
+              ),
+              child: ColoredBox(
+                color: const Color.fromRGBO(119, 125, 242, 1),
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        '1',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: SvgPicture.asset('assets/svg/Group_13.svg'),
+                    ),
+                    const Spacer(),
+                    const Padding(padding: EdgeInsets.symmetric(horizontal: 15), child: Text('Karolina K.')),
+                    const Spacer(),
+                    const Text(
+                      '525',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: SvgPicture.asset('assets/svg/Group_14.svg'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const RankingCard(
+              position: 2,
+              iconPath: 'assets/svg/Group_15.svg',
+              name: 'Marcin Z.',
+              points: 501,
+            ),
+            const RankingCard(
+              position: 3,
+              iconPath: 'assets/svg/Group_16.svg',
+              name: 'Zofia L.',
+              points: 473,
+            ),
+            const RankingCard(
+              position: 4,
+              iconPath: 'assets/svg/Group_17.svg',
+              name: 'Konrad H.',
+              points: 457,
+              isGoingDown: true,
+            ),
+            const RankingCard(
+              position: 5,
+              iconPath: 'assets/svg/Group_18.svg',
+              name: 'Rafał P.',
+              points: 420,
+              isGoingDown: true,
+            ),
+          ],
+        ),
       ),
     );
   }
