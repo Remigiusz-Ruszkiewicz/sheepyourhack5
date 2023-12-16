@@ -9,23 +9,15 @@ class ScaleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: highlighted ? 1.075 : 1.0,
-      child: Material(
-        elevation: highlighted ? 8 : 4,
-        borderRadius: BorderRadius.circular(22),
-        color: highlighted ? const Color(0xFFF64209) : Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 24,
-          ),
-          child: SizedBox(
-            width: 150,
-            height: 150,
-            child: LibraWidget(value: value),
-          ),
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 24,
+      ),
+      child: SizedBox(
+        width: 150,
+        height: 150,
+        child: LibraWidget(value: value),
       ),
     );
   }

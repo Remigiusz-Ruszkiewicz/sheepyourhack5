@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:harmony_app/src/enums/drawer_route.dart';
 import 'package:harmony_app/src/widgets/drawer_appbar.dart';
 import 'package:harmony_app/src/widgets/harmony_drawer.dart';
 
 class HarmonyPage extends StatelessWidget {
-  const HarmonyPage({required this.drawerIcons, required this.body, super.key});
+  const HarmonyPage({required this.drawerRoutes, required this.body, super.key});
 
-  final List<IconData> drawerIcons;
+  final List<DrawerRoute> drawerRoutes;
   final Widget body;
 
   @override
@@ -21,7 +22,7 @@ class HarmonyPage extends StatelessWidget {
       child: Scaffold(
         appBar: const DrawerAppBar(),
         endDrawer: HarmonyDrawer(
-          drawerIcons: drawerIcons,
+          drawerRoutes: drawerRoutes,
         ),
         body: body,
       ),

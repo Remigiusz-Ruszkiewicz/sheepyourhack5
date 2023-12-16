@@ -1,6 +1,7 @@
 import 'package:async_builder/async_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:harmony_app/src/enums/drawer_route.dart';
 import 'package:harmony_app/src/home_page/home_page_bloc.dart';
 import 'package:harmony_app/src/models/task.dart';
 import 'package:harmony_app/src/progress_list/progress_list_view.dart';
@@ -22,11 +23,11 @@ class HomePageView extends StatelessWidget {
     return const BlocProvider<HomePageBloc>(
       instance: HomePageBloc.new,
       child: HarmonyPage(
-        drawerIcons: [
-          Icons.show_chart,
-          Icons.task,
-          Icons.task_alt,
-          Icons.card_giftcard,
+        drawerRoutes: [
+          DrawerRoute.statistics,
+          DrawerRoute.activityAssign,
+          DrawerRoute.progress,
+          DrawerRoute.rewards,
         ],
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
@@ -107,7 +108,7 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
                   return ScaleWidget(value: value == 0 ? 0 : value / 2);
                 }
                 return ScaleWidget(
-                  value: value == 0 ? 0 : (value + candidateItems.first!.points) / 2,
+                  value: (value + candidateItems.first!.points) / 2,
                 );
               },
               onAccept: (item) {
@@ -118,34 +119,37 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
             ),
           ),
         ),
-        SingleChildScrollView(
-          primary: true,
-          child: AsyncBuilder<List<Task>>(
-            stream: widget.bloc.tasksStream,
-            retain: true,
-            builder: (context, tasks) {
-              return ListView.separated(
-                padding: EdgeInsets.zero,
-                itemCount: tasks!.length,
-                shrinkWrap: true,
-                primary: true,
-                separatorBuilder: (context, index) {
-                  return const Divider();
-                },
-                itemBuilder: (context, index) {
-                  final task = tasks[index];
-                  return LongPressDraggable<Task>(
-                    data: task,
-                    dragAnchorStrategy: pointerDragAnchorStrategy,
-                    feedback: DraggingListItem(
-                      dragKey: _draggableKey,
-                      task: task,
-                    ),
-                    child: MenuListItem(task: task),
-                  );
-                },
-              );
-            },
+        Padding(
+          padding: const EdgeInsets.only(top: 24),
+          child: SingleChildScrollView(
+            primary: true,
+            child: AsyncBuilder<List<Task>>(
+              stream: widget.bloc.tasksStream,
+              retain: true,
+              builder: (context, tasks) {
+                return ListView.separated(
+                  padding: EdgeInsets.zero,
+                  itemCount: tasks!.length,
+                  shrinkWrap: true,
+                  primary: true,
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
+                  itemBuilder: (context, index) {
+                    final task = tasks[index];
+                    return LongPressDraggable<Task>(
+                      data: task,
+                      dragAnchorStrategy: pointerDragAnchorStrategy,
+                      feedback: DraggingListItem(
+                        dragKey: _draggableKey,
+                        task: task,
+                      ),
+                      child: MenuListItem(task: task),
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ],

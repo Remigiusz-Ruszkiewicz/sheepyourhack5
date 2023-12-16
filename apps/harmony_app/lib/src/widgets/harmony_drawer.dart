@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmony_app/src/activity_list/activity_list_view.dart';
+import 'package:harmony_app/src/enums/drawer_route.dart';
 import 'package:harmony_app/src/home_page/home_page_view.dart';
 import 'package:harmony_app/src/progress_list/progress_list_view.dart';
 import 'package:harmony_app/src/ranking/ranking_view.dart';
@@ -7,9 +8,9 @@ import 'package:harmony_app/src/statistics/statistics_view.dart';
 import 'package:harmony_app/src/widgets/drawer_entry.dart';
 
 class HarmonyDrawer extends StatelessWidget {
-  const HarmonyDrawer({required this.drawerIcons, super.key});
+  const HarmonyDrawer({required this.drawerRoutes, super.key});
 
-  final List<IconData> drawerIcons;
+  final List<DrawerRoute> drawerRoutes;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,10 @@ class HarmonyDrawer extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              for (final icon in drawerIcons)
-                if (_drawerEntries[icon] case final ({String title, Widget Function() builder}) entry)
+              for (final route in drawerRoutes)
+                if (_drawerEntries[route] case final ({String title, Widget Function() builder}) entry)
                   DrawerEntry(
-                    iconData: icon,
+                    iconData: route.drawerIcon,
                     title: entry.title,
                     onPressed: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute<void>(builder: (_) => entry.builder()));
@@ -44,10 +45,10 @@ class HarmonyDrawer extends StatelessWidget {
   }
 }
 
-final Map<IconData, ({String title, Widget Function() builder})> _drawerEntries = {
-  Icons.dashboard: (title: 'Dashboard', builder: () => const HomePageView()),
-  Icons.task: (title: 'Przydziel zadania', builder: () => const ActivityListView()),
-  Icons.task_alt: (title: 'Ranking', builder: () => const RankingView()),
-  Icons.card_giftcard: (title: 'Nagrody', builder: () => const ProgressListView()),
-  Icons.show_chart: (title: 'Statystyki', builder: () => const StatisticsView()),
+final Map<DrawerRoute, ({String title, Widget Function() builder})> _drawerEntries = {
+  DrawerRoute.home: (title: 'Dashboard', builder: () => const HomePageView()),
+  DrawerRoute.activityAssign: (title: 'Przydziel zadania', builder: () => const ActivityListView()),
+  DrawerRoute.progress: (title: 'Ranking', builder: () => const RankingView()),
+  DrawerRoute.rewards: (title: 'Nagrody', builder: () => const ProgressListView()),
+  DrawerRoute.statistics: (title: 'Statystyki', builder: () => const StatisticsView()),
 };
