@@ -110,7 +110,7 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
               },
               onAccept: (item) {
                 setState(() {
-                  widget.bloc.setCompleted(item);
+                  widget.bloc.setTaskCompleted(item);
                 });
               },
             ),

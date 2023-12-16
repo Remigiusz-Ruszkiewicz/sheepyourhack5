@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:harmony_app/src/enums/activity_type.dart';
 import 'package:harmony_app/src/models/task.dart';
+import 'package:harmony_app/src/widgets/badge_widget.dart';
 import 'package:rxdart/rxdart.dart';
 
 class DataHolder implements Disposable {
@@ -19,11 +20,13 @@ class DataHolder implements Disposable {
 
   double get libreLevel => _libreLevelSubject.value;
 
-  void setTasks(List<Task> tasks) => _tasksSubject.add(tasks);
+  void updateTasksList(List<Task> tasks) {
+    _tasksSubject.add(_tasksSubject.value + tasks);
+  }
 
   void setLibreLevel(double value) => _libreLevelSubject.add(value);
 
-  void setCompleted(Task task) {
+  void setTaskCompleted(Task task) {
     final value = libreLevel + task.points;
     if (value != 0) {
       _libreLevelSubject.add(value / 2);
@@ -86,34 +89,3 @@ const List<Task> _mock = [
     icon: Icons.menu_book_outlined,
   ),
 ];
-
-class BadgeWidget extends StatelessWidget {
-  const BadgeWidget({required this.icon, required this.pointsValue, super.key});
-
-  final IconData icon;
-  final int pointsValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Badge(
-      largeSize: 50,
-      smallSize: 50,
-      backgroundColor: Colors.transparent,
-      textColor: Colors.black,
-      alignment: Alignment.topRight,
-      padding: const EdgeInsets.only(left: 12, bottom: 30),
-      label: Text(
-        '+ $pointsValue  ',
-        style: const TextStyle(fontSize: 15),
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Color.fromRGBO(119, 125, 242, 1),
-        ),
-        child: Icon(icon),
-      ),
-    );
-  }
-}

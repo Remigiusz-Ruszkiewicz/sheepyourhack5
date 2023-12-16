@@ -33,9 +33,9 @@ class HarmonyDrawer extends StatelessWidget {
                   DrawerEntry(
                     iconData: route.drawerIcon,
                     title: entry.title,
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute<void>(builder: (_) => entry.builder()));
-                    },
+                    onPressed: () => Navigator.of(context)
+                      ..pop()
+                      ..push(MaterialPageRoute<void>(builder: (_) => entry.builder())),
                   ),
             ],
           ),

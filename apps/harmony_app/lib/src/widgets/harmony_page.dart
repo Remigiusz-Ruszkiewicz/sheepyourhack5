@@ -4,10 +4,11 @@ import 'package:harmony_app/src/widgets/drawer_appbar.dart';
 import 'package:harmony_app/src/widgets/harmony_drawer.dart';
 
 class HarmonyPage extends StatelessWidget {
-  const HarmonyPage({required this.drawerRoutes, required this.body, super.key});
+  const HarmonyPage({required this.drawerRoutes, required this.body, this.bottomNavigationBar, super.key});
 
   final List<DrawerRoute> drawerRoutes;
   final Widget body;
+  final Widget? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class HarmonyPage extends StatelessWidget {
           drawerRoutes: drawerRoutes,
         ),
         body: body,
+        bottomNavigationBar: bottomNavigationBar,
       ),
     );
   }

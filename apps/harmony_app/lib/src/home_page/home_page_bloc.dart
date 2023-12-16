@@ -23,14 +23,14 @@ class HomePageBloc implements Disposable {
 
   double get libreLevel => _dataHolder.libreLevel;
 
-  void setCompleted(Task task) {
+  void setTaskCompleted(Task task) {
     final value = libreLevel + task.points;
     if (value != 0) {
       _dataHolder.setLibreLevel(value / 2);
     }
     _dataHolder.setLibreLevel(value);
     final tasks = _dataHolder.tasks.toList()..remove(task);
-    _dataHolder.setTasks(tasks);
+    _dataHolder.updateTasksList(tasks);
   }
 
   String _formatTime(DateTime dateTime) {

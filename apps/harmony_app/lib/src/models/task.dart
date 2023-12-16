@@ -15,6 +15,4 @@ class Task with _$Task {
     required IconData icon,
     @Default(false) bool isSelected,
   }) = _Task;
-
-  // String get formattedPoints => '+ $points';
 }
