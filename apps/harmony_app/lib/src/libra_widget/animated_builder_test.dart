@@ -14,7 +14,7 @@ class _AnimatedBuilderExampleState extends State<AnimatedBuilderExample> with Ti
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 1),
     vsync: this,
-  );
+  )..repeat();
 
   @override
   void dispose() {
@@ -28,10 +28,14 @@ class _AnimatedBuilderExampleState extends State<AnimatedBuilderExample> with Ti
       animation: _controller,
       child: widget.child,
       builder: (BuildContext context, Widget? child) {
-        return Transform.translate(
-          offset: Offset(0, widget.goUp ? (-25 * _controller.value) : (25 * _controller.value)),
+        return Transform.rotate(
+          angle: 120,
           child: child,
         );
+        // return Transform.translate(
+        //   offset: Offset(0, widget.goUp ? (-25 * _controller.value) : (25 * _controller.value)),
+        //   child: child,
+        // );
       },
     );
   }
