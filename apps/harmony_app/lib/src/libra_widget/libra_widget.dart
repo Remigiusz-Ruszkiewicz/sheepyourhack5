@@ -7,38 +7,41 @@ class LibraWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        alignment: AlignmentDirectional.topCenter,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 4, top: 42),
-            child: _AnimatedBuilder(
-              transform: Matrix4.rotationZ(value * (3.14159 / 180.0)),
-              child: const _LibraWidget('assets/libra/wage_bar.png', width: 110),
+    return Transform.scale(
+      scale: 1.8,
+      child: Center(
+        child: Stack(
+          alignment: AlignmentDirectional.topCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 4, top: 42),
+              child: _AnimatedBuilder(
+                transform: Matrix4.rotationZ(value * (3.14159 / 180.0)),
+                child: const _LibraWidget('assets/libra/wage_bar.png', width: 105),
+              ),
             ),
-          ),
-          Positioned(
-            left: 28,
-            top: 20,
-            child: _AnimatedBuilder(
-              transform: Matrix4.translationValues(0, value, 0),
-              child: const _LibraWidget('assets/libra/right_wage.png'),
+            Positioned(
+              left: 28,
+              top: 20,
+              child: _AnimatedBuilder(
+                transform: Matrix4.translationValues(0, value, 0),
+                child: const _LibraWidget('assets/libra/right_wage.png'),
+              ),
             ),
-          ),
-          Positioned(
-            right: 8,
-            top: -2,
-            child: _AnimatedBuilder(
-              transform: Matrix4.translationValues(0, -value, 0),
-              child: const _LibraWidget('assets/libra/left_wage.png'),
+            Positioned(
+              right: 8,
+              top: -2,
+              child: _AnimatedBuilder(
+                transform: Matrix4.translationValues(0, -value, 0),
+                child: const _LibraWidget('assets/libra/left_wage.png'),
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 12),
-            child: _LibraWidget('assets/libra/main_wage.png'),
-          ),
-        ],
+            const Padding(
+              padding: EdgeInsets.only(left: 12),
+              child: _LibraWidget('assets/libra/main_wage.png'),
+            ),
+          ],
+        ),
       ),
     );
   }

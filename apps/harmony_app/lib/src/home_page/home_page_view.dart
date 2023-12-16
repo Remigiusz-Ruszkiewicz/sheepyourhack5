@@ -104,7 +104,7 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
                   return ScaleWidget(value: value == 0 ? 0 : value / 2);
                 }
                 return ScaleWidget(
-                  value: value == 0 ? 0 : (value + candidateItems.first!.points) / 2,
+                  value: (value + candidateItems.first!.points) / 2,
                 );
               },
               onAccept: (item) {
@@ -115,34 +115,37 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
             ),
           ),
         ),
-        SingleChildScrollView(
-          primary: true,
-          child: AsyncBuilder<List<Task>>(
-            stream: widget.bloc.tasksStream,
-            retain: true,
-            builder: (context, tasks) {
-              return ListView.separated(
-                padding: EdgeInsets.zero,
-                itemCount: tasks!.length,
-                shrinkWrap: true,
-                primary: true,
-                separatorBuilder: (context, index) {
-                  return const Divider();
-                },
-                itemBuilder: (context, index) {
-                  final task = tasks[index];
-                  return LongPressDraggable<Task>(
-                    data: task,
-                    dragAnchorStrategy: pointerDragAnchorStrategy,
-                    feedback: DraggingListItem(
-                      dragKey: _draggableKey,
-                      task: task,
-                    ),
-                    child: MenuListItem(task: task),
-                  );
-                },
-              );
-            },
+        Padding(
+          padding: const EdgeInsets.only(top: 24),
+          child: SingleChildScrollView(
+            primary: true,
+            child: AsyncBuilder<List<Task>>(
+              stream: widget.bloc.tasksStream,
+              retain: true,
+              builder: (context, tasks) {
+                return ListView.separated(
+                  padding: EdgeInsets.zero,
+                  itemCount: tasks!.length,
+                  shrinkWrap: true,
+                  primary: true,
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
+                  itemBuilder: (context, index) {
+                    final task = tasks[index];
+                    return LongPressDraggable<Task>(
+                      data: task,
+                      dragAnchorStrategy: pointerDragAnchorStrategy,
+                      feedback: DraggingListItem(
+                        dragKey: _draggableKey,
+                        task: task,
+                      ),
+                      child: MenuListItem(task: task),
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ],
