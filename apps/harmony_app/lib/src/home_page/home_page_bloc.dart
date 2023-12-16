@@ -45,7 +45,7 @@ const List<Task> _mock = [
   Task(
     name: 'Czytanie książki',
     uid: '1',
-    icon: BadgeWidget(
+    widget: BadgeWidget(
       icon: Icons.menu_book_outlined,
       pointsValue: 5,
     ),
@@ -55,7 +55,7 @@ const List<Task> _mock = [
   Task(
     name: 'Jazda na rowerze',
     uid: '2',
-    icon: BadgeWidget(
+    widget: BadgeWidget(
       icon: Icons.directions_bike_outlined,
       pointsValue: 10,
     ),
@@ -65,7 +65,7 @@ const List<Task> _mock = [
   Task(
     name: 'Masaż',
     uid: '3',
-    icon: BadgeWidget(
+    widget: BadgeWidget(
       icon: Icons.balance_outlined,
       pointsValue: 5,
     ),
@@ -75,7 +75,7 @@ const List<Task> _mock = [
   Task(
     name: 'Mecz w koszykówkę',
     uid: '4',
-    icon: BadgeWidget(
+    widget: BadgeWidget(
       icon: Icons.sports_basketball_outlined,
       pointsValue: 15,
     ),

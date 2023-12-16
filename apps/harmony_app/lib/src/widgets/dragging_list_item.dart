@@ -23,7 +23,7 @@ class DraggingListItem extends StatelessWidget {
           width: 90,
           child: Opacity(
             opacity: 0.85,
-            child: task.icon,
+            child: task.widget,
           ),
         ),
       ),

@@ -23,7 +23,7 @@ class MenuListItem extends StatelessWidget {
               child: SizedBox(
                 height: 60,
                 width: 90,
-                child: task.icon,
+                child: task.widget,
               ),
             ),
           ),
