@@ -25,7 +25,7 @@ class HomePageView extends StatelessWidget {
           Icons.task_alt,
           Icons.card_giftcard,
         ],
-        body: const Padding(
+        body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: _PageBody(),
         ),
