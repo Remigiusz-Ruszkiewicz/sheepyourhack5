@@ -16,5 +16,7 @@ class StatisticsBloc implements Disposable {
   }
 
   @override
-  Future<void> onDispose() async {}
+  Future<void> onDispose() async {
+    await _statisticsPeriodSubject.close();
+  }
 }

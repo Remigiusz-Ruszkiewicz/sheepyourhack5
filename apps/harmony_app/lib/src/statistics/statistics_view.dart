@@ -48,6 +48,7 @@ class _PageBody extends StatelessWidget {
         AsyncBuilder<StatisticsPeriod>(
           stream: bloc.statisticsPeriodStream,
           initial: StatisticsPeriod.daily,
+          retain: true,
           builder: (context, value) {
             return Padding(
               padding: const EdgeInsets.all(25),
@@ -76,26 +77,29 @@ class _PageBody extends StatelessWidget {
                     DropdownMenuItem<StatisticsPeriod>(
                       value: StatisticsPeriod.daily,
                       child: Center(
-                          child: Text(
-                        'Dzień',
-                        style: TextStyle(color: Colors.black),
-                      )),
+                        child: Text(
+                          'Dzień',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
                     ),
                     DropdownMenuItem<StatisticsPeriod>(
                       value: StatisticsPeriod.weekly,
                       child: Center(
-                          child: Text(
-                        'Tydzień',
-                        style: TextStyle(color: Colors.black),
-                      )),
+                        child: Text(
+                          'Tydzień',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
                     ),
                     DropdownMenuItem<StatisticsPeriod>(
                       value: StatisticsPeriod.monthly,
                       child: Center(
-                          child: Text(
-                        'Miesiąc',
-                        style: TextStyle(color: Colors.black),
-                      )),
+                        child: Text(
+                          'Miesiąc',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
                     ),
                   ],
                   onChanged: (StatisticsPeriod? value) => bloc.setStatisticsPeriodValue(value!),
@@ -109,6 +113,7 @@ class _PageBody extends StatelessWidget {
           child: Center(
             child: AsyncBuilder<StatisticsPeriod>(
               stream: bloc.statisticsPeriodStream,
+              retain: true,
               builder: (context, statisticsPeriod) {
                 switch (statisticsPeriod) {
                   case StatisticsPeriod.daily:
