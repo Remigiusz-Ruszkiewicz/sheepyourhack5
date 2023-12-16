@@ -1,6 +1,7 @@
 import 'package:async_builder/async_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:harmony_app/src/enums/drawer_route.dart';
 import 'package:harmony_app/src/home_page/home_page_bloc.dart';
 import 'package:harmony_app/src/models/task.dart';
 import 'package:harmony_app/src/widgets/animated_scale.dart';
@@ -19,11 +20,11 @@ class HomePageView extends StatelessWidget {
     return const BlocProvider<HomePageBloc>(
       instance: HomePageBloc.new,
       child: HarmonyPage(
-        drawerIcons: [
-          Icons.show_chart,
-          Icons.task,
-          Icons.task_alt,
-          Icons.card_giftcard,
+        drawerRoutes: [
+          DrawerRoute.statistics,
+          DrawerRoute.activityAssign,
+          DrawerRoute.progress,
+          DrawerRoute.rewards,
         ],
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),

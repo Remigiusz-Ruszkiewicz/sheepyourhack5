@@ -57,22 +57,22 @@ scripts:
 
   # App build
 
-  build:sequence_studio:windows:
+  build:harmony_app:windows:
     run: >
       flutter config --enable-windows-desktop --enable-native-assets --no-version-check &&
       dart run msix:create
     packageFilters:
-      scope: 'sequence_studio'
+      scope: 'harmony_app'
     exec:
       failFast: true
       concurrency: 1
 
-  build:sequence_studio:android:
+  build:harmony_app:android:
     run: >
       flutter config --enable-android --enable-native-assets --no-version-check &&
       flutter build appbundle --release --no-pub --tree-shake-icons --no-track-widget-creation --obfuscate --split-debug-info=symbol_mapping/android
     packageFilters:
-      scope: 'sequence_studio'
+      scope: 'harmony_app'
     exec:
       failFast: true
       concurrency: 1

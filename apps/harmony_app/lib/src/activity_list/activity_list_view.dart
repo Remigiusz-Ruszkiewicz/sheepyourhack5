@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmony_app/src/enums/drawer_route.dart';
 import 'package:harmony_app/src/widgets/harmony_page.dart';
 
 class ActivityListView extends StatelessWidget {
@@ -7,11 +8,11 @@ class ActivityListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HarmonyPage(
-      drawerIcons: const [
-        Icons.show_chart,
-        Icons.dashboard,
-        Icons.task_alt,
-        Icons.card_giftcard,
+      drawerRoutes: const [
+        DrawerRoute.statistics,
+        DrawerRoute.home,
+        DrawerRoute.progress,
+        DrawerRoute.rewards,
       ],
       body: Container(
         clipBehavior: Clip.antiAlias,
