@@ -11,7 +11,7 @@ class Task {
     required this.activityType,
   });
 
-  final int points;
+  final double points;
   final String name;
   final String uid;
   final Widget widget;

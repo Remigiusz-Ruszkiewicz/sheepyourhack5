@@ -99,7 +99,13 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: DragTarget<Task>(
               builder: (context, candidateItems, rejectedItems) {
-                return const ScaleWidget();
+                final value = widget.bloc.libreLevelSubject.valueOrNull ?? 0;
+                if (candidateItems.isEmpty) {
+                  return ScaleWidget(value: value == 0 ? 0 : value / 2);
+                }
+                return ScaleWidget(
+                  value: value == 0 ? 0 : (value + candidateItems.first!.points) / 2,
+                );
               },
               onAccept: (item) {
                 setState(() {

@@ -46,6 +46,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
   assets:
+    - assets/libra/left_wage.png
+    - assets/libra/right_wage.png
+    - assets/libra/main_wage.png
+    - assets/libra/wage_bar.png
     - assets/

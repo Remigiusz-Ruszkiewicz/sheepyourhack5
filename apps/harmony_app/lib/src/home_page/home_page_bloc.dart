@@ -1,6 +1,5 @@
 import 'package:comprehensive_utils/comprehensive_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:get_it/get_it.dart';
 import 'package:harmony_app/src/enums/activity_type.dart';
 import 'package:harmony_app/src/models/task.dart';
@@ -16,6 +15,7 @@ class HomePageBloc implements Disposable {
   final DistinctSubject<String> _timeTextSubject = DistinctSubject<String>();
   final BehaviorSubject<String> _hintTextSubject = BehaviorSubject<String>.seeded('Czas na relaks');
   final BehaviorSubject<List<Task>> _tasksSubject = BehaviorSubject<List<Task>>.seeded(_mock);
+  final DistinctSubject<double> _libreLevelSubject = DistinctSubject<double>();
 
   ValueStream<String> get timeStream => _timeTextSubject.stream;
 
@@ -23,10 +23,16 @@ class HomePageBloc implements Disposable {
 
   ValueStream<List<Task>> get tasksStream => _tasksSubject.stream;
 
+  ValueStream<double> get libreLevelSubject => _libreLevelSubject.stream;
+
   void setCompleted(Task task) {
-    // recalculate balance
+    final value = (_libreLevelSubject.valueOrNull ?? 0) + task.points;
     final tasks = _tasksSubject.value.toList()..remove(task);
     _tasksSubject.add(tasks);
+    if (value != 0) {
+      _libreLevelSubject.add(value / 2);
+    }
+    _libreLevelSubject.add(value);
   }
 
   String _formatTime(DateTime dateTime) {
@@ -38,6 +44,7 @@ class HomePageBloc implements Disposable {
     await _timeTextSubject.close();
     await _hintTextSubject.close();
     await _tasksSubject.close();
+    await _libreLevelSubject.close();
   }
 }
 
@@ -69,7 +76,7 @@ const List<Task> _mock = [
       icon: Icons.balance_outlined,
       pointsValue: 5,
     ),
-    points: 10,
+    points: 5,
     activityType: ActivityType.relax,
   ),
   Task(
