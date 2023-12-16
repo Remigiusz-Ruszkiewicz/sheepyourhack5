@@ -26,13 +26,13 @@ class HomePageBloc implements Disposable {
   ValueStream<double> get libreLevelSubject => _libreLevelSubject.stream;
 
   void setCompleted(Task task) {
-    // recalculate balance
+    final value = (_libreLevelSubject.valueOrNull ?? 0) + task.points;
     final tasks = _tasksSubject.value.toList()..remove(task);
     _tasksSubject.add(tasks);
-    print('setCOmpleted ${_libreLevelSubject.valueOrNull ?? 0}');
-    print('setCOmpleted2 ${task.points}');
-    print('setCOmpleted3 ${(_libreLevelSubject.valueOrNull ?? 0) + task.points}');
-    _libreLevelSubject.add((_libreLevelSubject.valueOrNull ?? 0) + task.points);
+    if (value != 0) {
+      _libreLevelSubject.add(value / 2);
+    }
+    _libreLevelSubject.add(value);
   }
 
   String _formatTime(DateTime dateTime) {
@@ -52,7 +52,7 @@ const List<Task> _mock = [
   Task(
     name: 'Czytanie książki',
     uid: '1',
-    icon: BadgeWidget(
+    widget: BadgeWidget(
       icon: Icons.menu_book_outlined,
       pointsValue: 5,
     ),
@@ -62,7 +62,7 @@ const List<Task> _mock = [
   Task(
     name: 'Jazda na rowerze',
     uid: '2',
-    icon: BadgeWidget(
+    widget: BadgeWidget(
       icon: Icons.directions_bike_outlined,
       pointsValue: 10,
     ),
@@ -72,17 +72,17 @@ const List<Task> _mock = [
   Task(
     name: 'Masaż',
     uid: '3',
-    icon: BadgeWidget(
+    widget: BadgeWidget(
       icon: Icons.balance_outlined,
       pointsValue: 5,
     ),
-    points: 10,
+    points: 5,
     activityType: ActivityType.relax,
   ),
   Task(
     name: 'Mecz w koszykówkę',
     uid: '4',
-    icon: BadgeWidget(
+    widget: BadgeWidget(
       icon: Icons.sports_basketball_outlined,
       pointsValue: 15,
     ),

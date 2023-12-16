@@ -170,12 +170,10 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
               builder: (context, candidateItems, rejectedItems) {
                 final value = widget.bloc.libreLevelSubject.valueOrNull ?? 0;
                 if (candidateItems.isEmpty) {
-                  print('emptyDupa $value');
-                  return ScaleWidget(value: value);
+                  return ScaleWidget(value: value == 0 ? 0 : value / 2);
                 }
-                print('dupa $value');
                 return ScaleWidget(
-                  value: value + candidateItems.first!.points,
+                  value: value == 0 ? 0 : (value + candidateItems.first!.points) / 2,
                 );
               },
               onAccept: (item) {

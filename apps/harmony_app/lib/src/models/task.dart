@@ -7,14 +7,14 @@ class Task {
     required this.points,
     required this.name,
     required this.uid,
-    required this.icon,
+    required this.widget,
     required this.activityType,
   });
 
   final double points;
   final String name;
   final String uid;
-  final Widget icon;
+  final Widget widget;
   final ActivityType activityType;
 
   String get formattedPoints => '+ $points';
