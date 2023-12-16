@@ -23,6 +23,7 @@ dependencies:
   json_annotation: ^4.8.1
   async: ^2.11.0
   carousel_slider: ^4.2.1
+  flutter_svg: ^2.0.9
 
   # Modules
   dependency_interfaces:
@@ -45,3 +46,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/libra/left_wage.png
+    - assets/libra/right_wage.png
+    - assets/libra/main_wage.png
+    - assets/libra/wage_bar.png

@@ -5,7 +5,7 @@ import 'package:background_worker_pkg/background_worker_pkg.dart';
 import 'package:dependency_interfaces/dependency_interfaces.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:harmony_app/src/home_page/home_page_view.dart';
+import 'package:harmony_app/src/libra_widget/libra_widget.dart';
 import 'package:library_pkg/library_pkg.dart';
 import 'package:local_storage_pkg/local_storage_pkg.dart';
 import 'package:localization_pkg/localization_pkg.dart';
@@ -33,7 +33,11 @@ class HarmonyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Harmony',
       theme: darkTheme,
-      home: const SafeArea(child: HomePageView()),
+      home: const SafeArea(
+        child: Scaffold(
+          body: LibraWidget(),
+        ),
+      ),
     );
   }
 }
