@@ -19,14 +19,11 @@ class DraggingListItem extends StatelessWidget {
         key: dragKey,
         borderRadius: BorderRadius.circular(12),
         child: SizedBox(
-          height: 150,
-          width: 150,
+          height: 60,
+          width: 90,
           child: Opacity(
             opacity: 0.85,
-            child: Image(
-              image: task.imageProvider,
-              fit: BoxFit.cover,
-            ),
+            child: task.icon,
           ),
         ),
       ),

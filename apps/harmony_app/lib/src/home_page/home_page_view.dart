@@ -97,7 +97,7 @@ class HomePageView extends StatelessWidget {
             ),
           ),
         ),
-        body: const SingleChildScrollView(
+        body: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: _PageBody(),
         ),
@@ -112,34 +112,36 @@ class _PageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = _getIt.get<HomePageBloc>();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        AsyncBuilder<String>(
-          stream: bloc.timeStream,
-          retain: true,
-          initial: '',
-          builder: (_, time) => Text(
-            time!,
-            style: const TextStyle(
-              fontSize: 36,
-              color: Colors.black,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          AsyncBuilder<String>(
+            stream: bloc.timeStream,
+            retain: true,
+            initial: '',
+            builder: (_, time) => Text(
+              time!,
+              style: const TextStyle(
+                fontSize: 36,
+                color: Colors.black,
+              ),
             ),
           ),
-        ),
-        AsyncBuilder<String>(
-          stream: bloc.hintTextStream,
-          retain: true,
-          builder: (_, hint) => Text(
-            hint!,
-            style: const TextStyle(
-              fontSize: 24,
-              color: Colors.black,
+          AsyncBuilder<String>(
+            stream: bloc.hintTextStream,
+            retain: true,
+            builder: (_, hint) => Text(
+              hint!,
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.black,
+              ),
             ),
           ),
-        ),
-        _DraggableList(bloc),
-      ],
+          _DraggableList(bloc),
+        ],
+      ),
     );
   }
 }
@@ -179,31 +181,35 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
             ),
           ),
         ),
-        AsyncBuilder<List<Task>>(
-          stream: widget.bloc.tasksStream,
-          retain: true,
-          builder: (context, tasks) {
-            return ListView.separated(
-              padding: EdgeInsets.zero,
-              itemCount: tasks!.length,
-              shrinkWrap: true,
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 12);
-              },
-              itemBuilder: (context, index) {
-                final task = tasks[index];
-                return LongPressDraggable<Task>(
-                  data: task,
-                  dragAnchorStrategy: pointerDragAnchorStrategy,
-                  feedback: DraggingListItem(
-                    dragKey: _draggableKey,
-                    task: task,
-                  ),
-                  child: MenuListItem(task: task),
-                );
-              },
-            );
-          },
+        SingleChildScrollView(
+          primary: true,
+          child: AsyncBuilder<List<Task>>(
+            stream: widget.bloc.tasksStream,
+            retain: true,
+            builder: (context, tasks) {
+              return ListView.separated(
+                padding: EdgeInsets.zero,
+                itemCount: tasks!.length,
+                shrinkWrap: true,
+                primary: true,
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+                itemBuilder: (context, index) {
+                  final task = tasks[index];
+                  return LongPressDraggable<Task>(
+                    data: task,
+                    dragAnchorStrategy: pointerDragAnchorStrategy,
+                    feedback: DraggingListItem(
+                      dragKey: _draggableKey,
+                      task: task,
+                    ),
+                    child: MenuListItem(task: task),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ],
     );
