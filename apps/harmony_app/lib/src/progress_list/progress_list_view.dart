@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:harmony_app/src/widgets/harmony_page.dart';
 
 class ProgressListView extends StatelessWidget {
   const ProgressListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return HarmonyPage(
+      drawerIcons: const [
+        Icons.show_chart,
+        Icons.task,
+        Icons.task_alt,
+        Icons.dashboard,
+      ],
       body: Container(
         clipBehavior: Clip.antiAlias,
         decoration: const BoxDecoration(color: Color(0xFFE9E9F2)),
