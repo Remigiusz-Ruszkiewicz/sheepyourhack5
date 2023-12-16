@@ -8,8 +8,8 @@ class ProgressListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HarmonyPage(
-      drawerRoutes: const [
+    return const HarmonyPage(
+      drawerRoutes: [
         DrawerRoute.home,
         DrawerRoute.progress,
         DrawerRoute.activityAssign,
@@ -20,15 +20,22 @@ class ProgressListView extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                SvgPicture.asset('assets/svg/trace.svg'),
-                SvgPicture.asset(
-                  'assets/svg/trace.svg',
-                  width: 60,
+                Image(
+                  image: AssetImage('assets/box.png'),
+                  width: 120,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                  child: Image(
+                    image: AssetImage('assets/box.png'),
+                    width: 60,
+                  ),
                 ),
               ],
             ),
-            const Text(
+            Text(
               '36%',
               style: TextStyle(
                 fontSize: 28,
@@ -36,7 +43,7 @@ class ProgressListView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(bottom: 25),
               child: Text(
                 'Postępu w realizacji celu \nna ten miesiąc',
@@ -48,15 +55,20 @@ class ProgressListView extends StatelessWidget {
                 ),
               ),
             ),
-            const RankingCard(
-              title: 'Bilet do kina',
-              iconPath: 'assets/svg/cinema.svg',
-              percentage: 0.88,
+            RankingCard(
+              title: 'Bon 100 zł do sklepu Nike',
+              iconPath: 'assets/svg/nike.svg',
+              percentage: 0.22,
             ),
-            const RankingCard(
+            RankingCard(
               title: 'Bon 100 zł do serwisu Allegro',
               iconPath: 'assets/svg/allegro.svg',
               percentage: 0.55,
+            ),
+            RankingCard(
+              title: 'Bilet do kina',
+              //iconPath: 'assets/svg/cinema.svg',
+              percentage: 0.88,
             ),
           ],
         ),
@@ -67,14 +79,14 @@ class ProgressListView extends StatelessWidget {
 
 class RankingCard extends StatelessWidget {
   const RankingCard({
-    required this.iconPath,
     required this.title,
     required this.percentage,
+    this.iconPath,
     super.key,
   });
 
   final String title;
-  final String iconPath;
+  final String? iconPath;
   final double percentage;
 
   @override
@@ -88,7 +100,7 @@ class RankingCard extends StatelessWidget {
             child: Text(
               title,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
@@ -99,33 +111,56 @@ class RankingCard extends StatelessWidget {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: const Color.fromRGBO(248, 248, 254, 1),
             child: SizedBox(
-              height: 90,
-              width: double.infinity,
+              height: 200,
+              width: MediaQuery.of(context).size.width * 0.9,
               child: Column(
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 8,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(10),
                       ),
-                      child: SvgPicture.asset(
-                        iconPath,
-                        fit: BoxFit.fitWidth,
-                      ),
+                      child: iconPath != null
+                          ? SvgPicture.asset(
+                              iconPath!,
+                              fit: BoxFit.fitWidth,
+                            )
+                          : const Image(
+                              image: AssetImage('assets/sala.png'),
+                              width: 1100,
+                              fit: BoxFit.fitWidth,
+                            ),
                     ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        bottom: Radius.circular(10),
-                      ),
-                      child: LinearProgressIndicator(
-                        value: percentage,
-                        backgroundColor: const Color.fromRGBO(117, 124, 255, 0.5),
-                        valueColor: const AlwaysStoppedAnimation<Color>(Color.fromRGBO(119, 125, 242, 1)),
-                      ),
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            bottom: Radius.circular(10),
+                          ),
+                          child: LinearProgressIndicator(
+                            value: percentage,
+                            backgroundColor: const Color.fromRGBO(117, 124, 255, 0.5),
+                            valueColor: const AlwaysStoppedAnimation<Color>(Color.fromRGBO(119, 125, 242, 1)),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10, top: 4),
+                          child: Text(
+                            '${(percentage * 100).toStringAsFixed(0)}%',
+                            textAlign: TextAlign.right,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
