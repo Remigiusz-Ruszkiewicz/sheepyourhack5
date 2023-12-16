@@ -116,6 +116,7 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
             ),
           ),
         ),
+        const ButtonWidget(),
         SingleChildScrollView(
           padding: const EdgeInsets.only(top: 24),
           primary: false,
@@ -149,6 +150,78 @@ class _DraggableListState extends State<_DraggableList> with TickerProviderState
               );
             },
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class ButtonWidget extends StatefulWidget {
+  const ButtonWidget({super.key});
+
+  @override
+  State<ButtonWidget> createState() => _ButtonWidgetState();
+}
+
+class _ButtonWidgetState extends State<ButtonWidget> with TickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    late final AnimationController controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat();
+    late final Animation<double> scaleAnimation = Tween<double>(begin: 0.6, end: 1.2).animate(controller);
+    late final Animation<double> fadeAnimation = Tween<double>(begin: 1, end: 0.2).animate(controller);
+
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        FadeTransition(
+          opacity: fadeAnimation,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+              width: 50 * 1.5,
+              height: 50 * 1.5,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromRGBO(119, 125, 242, 1),
+              ),
+            ),
+          ),
+        ),
+        FadeTransition(
+          opacity: fadeAnimation,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+              width: 65 * 1.5,
+              height: 65 * 1.5,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromRGBO(119, 125, 242, 1),
+              ),
+            ),
+          ),
+        ),
+        FadeTransition(
+          opacity: fadeAnimation,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+              width: 80 * 1.5,
+              height: 80 * 1.5,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromRGBO(119, 125, 242, 1),
+              ),
+            ),
+          ),
+        ),
+        const Icon(
+          Icons.home_work_outlined,
+          size: 50,
+          color: Colors.white,
         ),
       ],
     );
