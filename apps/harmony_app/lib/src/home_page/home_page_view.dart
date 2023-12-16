@@ -1,12 +1,11 @@
 import 'package:async_builder/async_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:harmony_app/src/activity_list/activity_list_view.dart';
 import 'package:harmony_app/src/home_page/home_page_bloc.dart';
 import 'package:harmony_app/src/models/task.dart';
-import 'package:harmony_app/src/progress_list/progress_list_view.dart';
 import 'package:harmony_app/src/widgets/animated_scale.dart';
 import 'package:harmony_app/src/widgets/dragging_list_item.dart';
+import 'package:harmony_app/src/widgets/harmony_page.dart';
 import 'package:harmony_app/src/widgets/menu_list_item.dart';
 import 'package:library_pkg/library_pkg.dart';
 
@@ -17,84 +16,16 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomePageBloc>(
+    return const BlocProvider<HomePageBloc>(
       instance: HomePageBloc.new,
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            Builder(
-              builder: (context) => DrawerButton(
-                style: IconButton.styleFrom(iconSize: 36, foregroundColor: Colors.black),
-                onPressed: () => Scaffold.maybeOf(context)?.openEndDrawer(),
-              ),
-            ),
-          ],
-        ),
-        endDrawer: Drawer(
-          child: Container(
-            constraints: const BoxConstraints.expand(),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/background.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                ListTile(
-                  leading: const Icon(
-                    Icons.show_chart,
-                    color: Colors.black,
-                  ),
-                  title: const Text(
-                    'Statystyki',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.task,
-                    color: Colors.black,
-                  ),
-                  title: const Text(
-                    'Przydziel zadania',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ActivityListView()));
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.task_alt,
-                    color: Colors.black,
-                  ),
-                  title: const Text(
-                    'Postępy',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.card_giftcard,
-                    color: Colors.black,
-                  ),
-                  title: const Text(
-                    'Nagrody',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const ProgressListView()));
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-        body: const Padding(
+      child: HarmonyPage(
+        drawerIcons: [
+          Icons.show_chart,
+          Icons.task,
+          Icons.task_alt,
+          Icons.card_giftcard,
+        ],
+        body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: _PageBody(),
         ),
