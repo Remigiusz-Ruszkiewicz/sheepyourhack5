@@ -3,6 +3,8 @@ import 'package:harmony_app/src/activity_list/activity_list_view.dart';
 import 'package:harmony_app/src/enums/drawer_route.dart';
 import 'package:harmony_app/src/home_page/home_page_view.dart';
 import 'package:harmony_app/src/progress_list/progress_list_view.dart';
+import 'package:harmony_app/src/ranking/ranking_view.dart';
+import 'package:harmony_app/src/statistics/statistics_view.dart';
 import 'package:harmony_app/src/widgets/drawer_entry.dart';
 
 class HarmonyDrawer extends StatelessWidget {
@@ -27,7 +29,7 @@ class HarmonyDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (final route in drawerRoutes)
-                if (_drawerEntries[route] case final ({String title, Widget Function() builder}) entry)
+                if (_drawerEntries[route] case final ({String title, ValueGetter<Widget> builder}) entry)
                   DrawerEntry(
                     iconData: route.drawerIcon,
                     title: entry.title,
@@ -43,10 +45,10 @@ class HarmonyDrawer extends StatelessWidget {
   }
 }
 
-final Map<DrawerRoute, ({String title, Widget Function() builder})> _drawerEntries = {
-  DrawerRoute.home: (title: 'Dashboard', builder: () => const HomePageView()),
-  DrawerRoute.activityAssign: (title: 'Przydziel zadania', builder: () => const ActivityListView()),
-  DrawerRoute.progress: (title: 'Postępy', builder: () => const ActivityListView()),
-  DrawerRoute.rewards: (title: 'Nagrody', builder: () => const ProgressListView()),
-  DrawerRoute.statistics: (title: 'Statystyki', builder: () => const HomePageView()),
+const Map<DrawerRoute, ({String title, ValueGetter<Widget> builder})> _drawerEntries = {
+  DrawerRoute.home: (title: 'Dashboard', builder: HomePageView.new),
+  DrawerRoute.activityAssign: (title: 'Przydziel zadania', builder: ActivityListView.new),
+  DrawerRoute.progress: (title: 'Ranking', builder: RankingView.new),
+  DrawerRoute.rewards: (title: 'Nagrody', builder: ProgressListView.new),
+  DrawerRoute.statistics: (title: 'Statystyki', builder: StatisticsView.new),
 };

@@ -1,18 +1,11 @@
 import 'dart:async';
-import 'dart:ui';
 
-import 'package:background_worker_pkg/background_worker_pkg.dart';
-import 'package:dependency_interfaces/dependency_interfaces.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:harmony_app/src/home_page/data_holder.dart';
 import 'package:harmony_app/src/home_page/home_page_view.dart';
 import 'package:library_pkg/library_pkg.dart';
-import 'package:local_storage_pkg/local_storage_pkg.dart';
 import 'package:localization_pkg/localization_pkg.dart';
-import 'package:logger_pkg/logger_pkg.dart';
-import 'package:permission_handler_pkg/permission_handler_pkg.dart';
-import 'package:platform_info_pkg/platform_info_pkg.dart';
-import 'package:rest_client_pkg/rest_client_pkg.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,54 +30,13 @@ class HarmonyApp extends StatelessWidget {
         appBarTheme: darkTheme.appBarTheme.copyWith(backgroundColor: Colors.transparent),
         iconTheme: darkTheme.iconTheme.copyWith(color: Colors.black),
       ),
-      home: SafeArea(
-        child: Container(
-          constraints: const BoxConstraints.expand(),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/background.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: const HomePageView(),
-        ),
+      home: const SafeArea(
+        child: HomePageView(),
       ),
     );
   }
 }
 
 void _registerDependencies() {
-  final getIt = GetIt.instance;
-  getIt
-    ..registerSingletonAsync<Logger>(
-      () => LoggerProvider.createAsync('harmony'),
-      dispose: (service) => service.dispose(),
-    )
-    ..registerSingletonAsync<PermissionHandler>(
-      () => PermissionProvider.createAsync(
-        getIt.get<PlatformInfo>().version,
-        logger: getIt.get<Logger>(),
-      ),
-      dependsOn: [Logger],
-    )
-    ..registerSingletonAsync<BackgroundWorker>(
-      () => BackgroundWorkerProvider.createAsync(RootIsolateToken.instance!),
-      dispose: (worker) => worker.dispose(),
-    )
-    ..registerSingletonAsync<LocalStorageProvider>(
-      () => LocalStorageProvider.createAsync(
-        getIt.get<BackgroundWorker>(),
-        logger: getIt.get<Logger>(),
-      ),
-      dependsOn: [BackgroundWorker, Logger],
-      dispose: (service) => service.dispose(),
-    )
-    ..registerLazySingleton<PlatformInfo>(PlatformInfoProvider.new)
-    ..registerLazySingletonAsync<RestClientProvider>(
-      () => RestClientProvider.createAsync(
-        getIt.get<BackgroundWorker>(),
-        logger: getIt.get<Logger>(),
-      ),
-      dispose: (service) => service.dispose(),
-    );
+  GetIt.instance.registerSingleton<DataHolder>(DataHolder());
 }
