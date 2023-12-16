@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:harmony_app/src/enums/drawer_route.dart';
 import 'package:harmony_app/src/widgets/harmony_page.dart';
 
 class RankingView extends StatelessWidget {
@@ -8,11 +9,11 @@ class RankingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HarmonyPage(
-      drawerIcons: const [
-        Icons.show_chart,
-        Icons.task,
-        Icons.card_giftcard,
-        Icons.dashboard,
+      drawerRoutes: const [
+        DrawerRoute.home,
+        DrawerRoute.progress,
+        DrawerRoute.activityAssign,
+        DrawerRoute.statistics,
       ],
       body: Column(
         children: [

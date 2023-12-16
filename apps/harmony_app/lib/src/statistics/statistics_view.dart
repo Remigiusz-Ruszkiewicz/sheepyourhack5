@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmony_app/src/enums/drawer_route.dart';
 import 'package:harmony_app/src/widgets/harmony_page.dart';
 
 class StatisticsView extends StatelessWidget {
@@ -7,11 +8,11 @@ class StatisticsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HarmonyPage(
-      drawerIcons: const [
-        Icons.dashboard,
-        Icons.task,
-        Icons.task_alt,
-        Icons.card_giftcard,
+      drawerRoutes: const [
+        DrawerRoute.home,
+        DrawerRoute.progress,
+        DrawerRoute.activityAssign,
+        DrawerRoute.rewards,
       ],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -155,8 +156,7 @@ class StatisticsView extends StatelessWidget {
                         color: Color(0x3F000000),
                         blurRadius: 4,
                         offset: Offset(0, 4),
-                        spreadRadius: 0,
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -187,7 +187,7 @@ class StatisticsView extends StatelessWidget {
                   height: 28,
                   clipBehavior: Clip.antiAlias,
                   decoration: const BoxDecoration(),
-                  child: const Stack(children: []),
+                  child: const Stack(),
                 ),
               ),
               const Positioned(
@@ -262,7 +262,7 @@ class StatisticsView extends StatelessWidget {
                   opacity: 0.22,
                   child: Transform(
                     transform: Matrix4.identity()
-                      ..translate(0.0, 0.0)
+                      ..translate(0.0)
                       ..rotateZ(-0.24),
                     child: Container(
                       width: 30.25,
