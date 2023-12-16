@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'package:logger_pkg/src/helpers/log_recorder.dart';
 import 'package:logger_pkg/src/instances/logger_release.dart';
 

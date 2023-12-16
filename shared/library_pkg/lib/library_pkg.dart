@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 /// Module
 library library_pkg;
 
@@ -22,7 +17,7 @@ export 'src/widgets/entity_manager/entity.dart';
 export 'src/widgets/entity_manager/entity_list_entry.dart';
 export 'src/widgets/entity_manager/entity_manager_bloc.dart';
 export 'src/widgets/entity_manager/entity_manager_view.dart';
-export 'src/widgets/gossen_app_bar.dart';
+export 'src/widgets/harmony_app_bar.dart';
 export 'src/widgets/initialization_widget.dart';
 export 'src/widgets/live_data/digital_display.dart';
 export 'src/widgets/live_data/graph.dart';

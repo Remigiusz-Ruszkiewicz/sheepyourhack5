@@ -1,8 +1,3 @@
-/*
- * Copyright © 2023 Gossen Metrawatt GmbH
- * All rights reserved.
- */
-
 import 'package:collection/collection.dart';
 import 'package:comprehensive_utils/comprehensive_utils.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +15,7 @@ class EntityManagerView<T extends EntityManagerBloc> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GossenAppBar(
+      appBar: HarmonyAppBar(
         title: title,
         trailingWidgets: actions,
         leading: leading,
